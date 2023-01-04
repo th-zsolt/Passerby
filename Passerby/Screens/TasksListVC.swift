@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Alamofire
 
-class TasksListVC: PBDataLoadingVC, BindableType  {
+class TasksListVC: PBDataLoadingVC {
     var viewModel: TasksListViewModel!
     
     private let bag = DisposeBag()
@@ -20,8 +20,9 @@ class TasksListVC: PBDataLoadingVC, BindableType  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
-        getTaskItems()
+        view.backgroundColor = .systemPink
+//        configureViewController()
+//        getTaskItems()
     }
 
     
