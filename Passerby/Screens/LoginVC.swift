@@ -7,16 +7,24 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
-class LoginVC: PBDataLoadingVC, BindableType {
+class LoginVC: PBDataLoadingVC {
+             
     var viewModel: LoginViewModel!
-        
+    
+    private let buttonClickedSubject = PublishSubject<Bool>()
+    var buttonClicked: Observable <Bool> {
+        return buttonClickedSubject.asObservable()
+    }
+            
     let logoImageView = UIImageView()
     let userNameTextField = PBTextField()
     let callToActionButton = PBButton(color: .systemGreen, title: "Login")
     
     var isLoginNameEntered: Bool {return !userNameTextField.text!.isEmpty }
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -41,7 +49,7 @@ class LoginVC: PBDataLoadingVC, BindableType {
     }
     
     
-//    @objc func pushCocktailsListVC() {
+    @objc func pushCocktailsListVC() {
 //        guard isCocktailNameEntered else {
 //            presentCYAlert(title: "Empty Cocktail Name", message: "Please enter a cocktail name.", buttonTitle: "Ok")
 //            return
@@ -50,8 +58,8 @@ class LoginVC: PBDataLoadingVC, BindableType {
 //
 //        let cocktailsListVC = CocktailsListVC(cocktailName: cocktailNameTextField.text!)
 //        navigationController?.pushViewController(cocktailsListVC, animated: true)
-//
-//    }
+        buttonClickedSubject.onNext(true)
+    }
     
     func configureLogoImageView() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +89,8 @@ class LoginVC: PBDataLoadingVC, BindableType {
     
     
     func configureCallToActionButton() {
-//        callToActionButton.addTarget(self, action: #selector(pushCocktailsListVC), for: .touchUpInside)
+
+        callToActionButton.addTarget(self, action: #selector(pushCocktailsListVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
@@ -92,15 +101,16 @@ class LoginVC: PBDataLoadingVC, BindableType {
     }
     
     
-    func bindViewModel() {
-        
-    }
+//    func bindViewModel() {
+//
+//    }
     
 }
 
 extension LoginVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 //        pushCocktailsListVC()
+        
         return true
     }
 }
