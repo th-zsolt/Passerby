@@ -11,18 +11,18 @@ import RxCocoa
 import Alamofire
 
 class TasksListVC: PBDataLoadingVC {
-    var viewModel: TasksListViewModel!
     
     private let bag = DisposeBag()
-//    let tableView = UITableView()
-    var tasks: [TaskItem] = []
-           
+    
+    var viewModel: TasksListViewModel!
+    
+    let tableView = UITableView()           
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemPink
 //        configureViewController()
-//        getTaskItems()
+//        bindTableView()
     }
 
     
@@ -33,34 +33,40 @@ class TasksListVC: PBDataLoadingVC {
     }
     
     
-    func getTaskItems() {
-        let userId = "PublishSubject"
-        self.viewModel.getTasks(userId: userId)
-        self.viewModel.output
-                .observe(on: MainScheduler.instance)
-                .filter{$0 != nil}
-                .subscribe(onNext: { tasksList in
-                print("List of posts:", tasksList)
-        })
-        .disposed(by: bag)
-    }
-    
-    
-    func bindViewModel() {
+    func bindTableView() {
+//        let id = "PublishSubject"
+//        self.viewModel.getTasks(userId: id)
+//        self.viewModel.output
+//            .observe(on: MainScheduler.instance)
+//            .filter{$0 != nil}
+//            .bind(to: tableView.rx.items) {
+//                (tableView: tableView, index: Int, element: String) in
+//                let cell = UITableViewCell(style: .default, reuseIdentifier: "TableViewCell") as! PBTableViewCell
+//
+//                return cell
+//            }
+//        self.viewModel.output
+//                .observe(on: MainScheduler.instance)
+//                .filter{$0 != nil}
+//                .subscribe(onNext: { tasksList in
+//                print("List of posts:", tasksList)
+//                })
+//        .disposed(by: bag)
         
+        configureTableView()
     }
 
-//
-//    func configureTableView() {
-//        view.addSubview(tableView)
-//
-//        tableView.frame = view.bounds
-//        tableView.rowHeight = 50
-////        tableView.dataSource = self
-//
-//        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseID)
-//    }
-//
+
+    func configureTableView() {
+        view.addSubview(tableView)
+
+        tableView.frame = view.bounds
+        tableView.rowHeight = 50
+//        tableView.dataSource = self
+
+//        tableView.register(PBTableViewCell.self, forCellReuseIdentifier: PBTableViewCell.reuseID)
+    }
+
 //    func updateUI(with tasks: [TaskItem]) {
 //        if tasks.isEmpty {
 //            print("hiba")
@@ -75,18 +81,17 @@ class TasksListVC: PBDataLoadingVC {
 
 }
 
-//extension ViewController: UITableViewDataSource {
+//extension TasksListVC: UITableViewDataSource {
 //
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return tasks.count
+//        return viewModel.output.value?.count ?? 0
 //    }
 //
 //
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reuseID) as! TableViewCell
-//        let task = tasks[indexPath.row]
-//        cell.set (task: task)
-//        return cell
+//        return tableView.dequeueReusableCell(withIdentifier: PBTableViewCell.reuseID) as! PBTableViewCell
 //    }
 //
 //}
+
+//guard let task = viewModel.output.value?[indexPath.row] else  { return }

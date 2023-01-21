@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class MainCoordinator: Coordinator {
     
@@ -14,6 +15,7 @@ class MainCoordinator: Coordinator {
     
     var rootViewController = UINavigationController()
     
+    var childCoordinators = [Coordinator]()
     
     lazy var loginVC: LoginVC = {
         let vc = LoginVC()
@@ -21,15 +23,23 @@ class MainCoordinator: Coordinator {
     }()
     
     func start() {
-                
+           
+//        let loginCoordinator = LoginCoordinator()
+        let viewModel = LoginViewModel()
+        
         rootViewController.setViewControllers([loginVC], animated: false)
         
-        loginVC.buttonClicked.subscribe { clicked in
-            if clicked {
-                print ("Igaz")
-            } else {
-                print ("Hamis")
-            }
-        }.disposed(by: bag)
+        
+        loginVC.buttonClicked
+            .subscribe(onNext: { _ in self.showTasksList(in: self.rootViewController)})
+            .disposed(by: bag)
+    }
+    
+    
+    private func showTasksList(in navigationController: UINavigationController) {
+        
+        let viewModel = TasksListViewModel()
+        let tasksListVC  = TasksListVC()
+        navigationController.pushViewController(tasksListVC, animated: true)
     }
 }

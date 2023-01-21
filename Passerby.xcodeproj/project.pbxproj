@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D450B4D297C686E00B85F49 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B4C297C686E00B85F49 /* User.swift */; };
+		0D450B4F297C6BF700B85F49 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */; };
+		0D450B51297C7A7200B85F49 /* PBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */; };
 		0D710383297C458A00141A67 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D710382297C458A00141A67 /* Coordinator.swift */; };
 		0DB6F87C296543B000484156 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB6F87B296543B000484156 /* AppDelegate.swift */; };
 		0DB6F87E296543B000484156 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB6F87D296543B000484156 /* SceneDelegate.swift */; };
@@ -29,13 +32,7 @@
 		0DBADC652969D3500033A150 /* PBDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBADC642969D3500033A150 /* PBDataLoadingVC.swift */; };
 		0DBADC672969D3C40033A150 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBADC662969D3C40033A150 /* LoginVC.swift */; };
 		0DBADC692969D4530033A150 /* PBAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBADC682969D4530033A150 /* PBAlertContainerView.swift */; };
-		0DBC30A62974575100C74F3C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC30A52974575100C74F3C /* Scene.swift */; };
 		0DBC30A829745A3C00C74F3C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC30A729745A3C00C74F3C /* LoginViewModel.swift */; };
-		0DBC30AA29745A8800C74F3C /* SceneCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC30A929745A8800C74F3C /* SceneCoordinatorType.swift */; };
-		0DBC30AE29745AD600C74F3C /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC30AD29745AD600C74F3C /* SceneCoordinator.swift */; };
-		0DBC30B029745B0300C74F3C /* Scene+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC30AF29745B0300C74F3C /* Scene+ViewController.swift */; };
-		0DBC30B229745B5E00C74F3C /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC30B129745B5E00C74F3C /* SceneTransitionType.swift */; };
-		0DBC50E7297535330007A3CC /* BindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC50E6297535330007A3CC /* BindableType.swift */; };
 		0DBC50EB29754C1F0007A3CC /* UINavigationController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC50EA29754C1F0007A3CC /* UINavigationController+Rx.swift */; };
 		0DBE60B229668A2300D6F400 /* PBEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60B129668A2300D6F400 /* PBEmptyStateView.swift */; };
 		0DBE60B929668B1E00D6F400 /* PBTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60B829668B1E00D6F400 /* PBTitleLabel.swift */; };
@@ -46,6 +43,9 @@
 
 /* Begin PBXFileReference section */
 		092E6CC8C4490C123CB516BC /* Pods-Passerby.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passerby.debug.xcconfig"; path = "Target Support Files/Pods-Passerby/Pods-Passerby.debug.xcconfig"; sourceTree = "<group>"; };
+		0D450B4C297C686E00B85F49 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTableViewCell.swift; sourceTree = "<group>"; };
 		0D710382297C458A00141A67 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0DB6F878296543B000484156 /* Passerby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passerby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DB6F87B296543B000484156 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,13 +70,7 @@
 		0DBADC642969D3500033A150 /* PBDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBDataLoadingVC.swift; sourceTree = "<group>"; };
 		0DBADC662969D3C40033A150 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0DBADC682969D4530033A150 /* PBAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBAlertContainerView.swift; sourceTree = "<group>"; };
-		0DBC30A52974575100C74F3C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		0DBC30A729745A3C00C74F3C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		0DBC30A929745A8800C74F3C /* SceneCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorType.swift; sourceTree = "<group>"; };
-		0DBC30AD29745AD600C74F3C /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
-		0DBC30AF29745B0300C74F3C /* Scene+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scene+ViewController.swift"; sourceTree = "<group>"; };
-		0DBC30B129745B5E00C74F3C /* SceneTransitionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
-		0DBC50E6297535330007A3CC /* BindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableType.swift; sourceTree = "<group>"; };
 		0DBC50EA29754C1F0007A3CC /* UINavigationController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Rx.swift"; sourceTree = "<group>"; };
 		0DBE60B129668A2300D6F400 /* PBEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBEmptyStateView.swift; sourceTree = "<group>"; };
 		0DBE60B829668B1E00D6F400 /* PBTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTitleLabel.swift; sourceTree = "<group>"; };
@@ -124,7 +118,6 @@
 				0DBADC5B2969D0C20033A150 /* Extension */,
 				0DBADC5A2969D0A40033A150 /* Utilities */,
 				0DBADC5E2969D1580033A150 /* Networking */,
-				0DBC30A42974573100C74F3C /* Scenes */,
 				0DB9D0BA296AE5C300C1B353 /* Model */,
 				0DBE60AB2966893600D6F400 /* Cuistom Views */,
 				0DBE60AA2966889900D6F400 /* Screens */,
@@ -139,6 +132,7 @@
 				0D710382297C458A00141A67 /* Coordinator.swift */,
 				0DB7253029785F8200336CDB /* ApplicationCoordinator.swift */,
 				0DB725342978726200336CDB /* MainCoordinator.swift */,
+				0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -147,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				0DB9D0BB296AE6A900C1B353 /* TaskItem.swift */,
-				0DBC50E6297535330007A3CC /* BindableType.swift */,
+				0D450B4C297C686E00B85F49 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,18 +182,6 @@
 				0DB9D0BD296AE70500C1B353 /* ApiClient.swift */,
 			);
 			path = Networking;
-			sourceTree = "<group>";
-		};
-		0DBC30A42974573100C74F3C /* Scenes */ = {
-			isa = PBXGroup;
-			children = (
-				0DBC30A52974575100C74F3C /* Scene.swift */,
-				0DBC30A929745A8800C74F3C /* SceneCoordinatorType.swift */,
-				0DBC30AD29745AD600C74F3C /* SceneCoordinator.swift */,
-				0DBC30AF29745B0300C74F3C /* Scene+ViewController.swift */,
-				0DBC30B129745B5E00C74F3C /* SceneTransitionType.swift */,
-			);
-			path = Scenes;
 			sourceTree = "<group>";
 		};
 		0DBE60AA2966889900D6F400 /* Screens */ = {
@@ -282,6 +264,7 @@
 		0DBE60B729668AC300D6F400 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -419,13 +402,12 @@
 			files = (
 				0DBC30A829745A3C00C74F3C /* LoginViewModel.swift in Sources */,
 				0DBADC562969CD5B0033A150 /* PBImageView.swift in Sources */,
+				0D450B4F297C6BF700B85F49 /* LoginCoordinator.swift in Sources */,
 				0DBE60BD29668E0D00D6F400 /* PBSecondaryTitleLabel.swift in Sources */,
 				0DB9D0BC296AE6A900C1B353 /* TaskItem.swift in Sources */,
 				0DB6F87C296543B000484156 /* AppDelegate.swift in Sources */,
-				0DBC30B029745B0300C74F3C /* Scene+ViewController.swift in Sources */,
+				0D450B4D297C686E00B85F49 /* User.swift in Sources */,
 				0DBE60B929668B1E00D6F400 /* PBTitleLabel.swift in Sources */,
-				0DBC30AE29745AD600C74F3C /* SceneCoordinator.swift in Sources */,
-				0DBC30B229745B5E00C74F3C /* SceneTransitionType.swift in Sources */,
 				0DB9D0C4296AE89600C1B353 /* TasksListViewModel.swift in Sources */,
 				0DBE60B229668A2300D6F400 /* PBEmptyStateView.swift in Sources */,
 				0DBADC652969D3500033A150 /* PBDataLoadingVC.swift in Sources */,
@@ -434,17 +416,15 @@
 				0DB725352978726200336CDB /* MainCoordinator.swift in Sources */,
 				0DBADC522969CA700033A150 /* PBButton.swift in Sources */,
 				0D710383297C458A00141A67 /* Coordinator.swift in Sources */,
-				0DBC30A62974575100C74F3C /* Scene.swift in Sources */,
 				0DB6F87E296543B000484156 /* SceneDelegate.swift in Sources */,
 				0DBADC672969D3C40033A150 /* LoginVC.swift in Sources */,
 				0DB9D0BE296AE70500C1B353 /* ApiClient.swift in Sources */,
 				0DB9D0C0296AE73400C1B353 /* ApiError.swift in Sources */,
 				0DBADC5D2969D0F90033A150 /* UIView+Ext.swift in Sources */,
-				0DBC30AA29745A8800C74F3C /* SceneCoordinatorType.swift in Sources */,
+				0D450B51297C7A7200B85F49 /* PBTableViewCell.swift in Sources */,
 				0DBADC592969CE590033A150 /* PBAlertVC.swift in Sources */,
 				0DBADC612969D1F00033A150 /* Constants.swift in Sources */,
 				0DBADC692969D4530033A150 /* PBAlertContainerView.swift in Sources */,
-				0DBC50E7297535330007A3CC /* BindableType.swift in Sources */,
 				0DB9D0C2296AE74500C1B353 /* ApiRouter.swift in Sources */,
 				0DBE60BB29668B3B00D6F400 /* PBBodyLabel.swift in Sources */,
 				0DBADC542969CD190033A150 /* PBTextField.swift in Sources */,

@@ -13,19 +13,21 @@ class TasksListViewModel {
 
         
     // MARK: - Input
-    var input: BehaviorRelay<TaskItemResult> = BehaviorRelay<TaskItemResult>(value: TaskItemResult())
+//    var input: BehaviorRelay<TaskItemResult> = BehaviorRelay<TaskItemResult>(value: TaskItemResult())
+//    let user = Driver<User>
 
     // MARK: - Output
     let output = BehaviorRelay<[TaskItem]?>(value: nil)
 
     // MARK: - Init
-    init(input: Driver<TaskItemResult>) {
-//        self.input = input
+    init() {
+        
     }
     
     var bag: DisposeBag = DisposeBag()
     
     func getTasks(userId: String) {
+        print("userId")
         ApiClient.getTasks(userId: userId).asObservable().subscribe(
             onNext: { result in
                 self.mapTasks(result: result)
