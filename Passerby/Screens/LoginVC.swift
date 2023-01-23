@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 class LoginVC: PBDataLoadingVC {
-             
     var viewModel: LoginViewModel!
     
     private let buttonClickedSubject = PublishSubject<Bool>()

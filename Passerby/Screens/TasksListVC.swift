@@ -22,7 +22,7 @@ class TasksListVC: PBDataLoadingVC {
         super.viewDidLoad()
         view.backgroundColor = .systemPink
 //        configureViewController()
-//        bindTableView()
+        bindTableView()
     }
 
     
@@ -34,8 +34,8 @@ class TasksListVC: PBDataLoadingVC {
     
     
     func bindTableView() {
-//        let id = "PublishSubject"
-//        self.viewModel.getTasks(userId: id)
+        let dummyid = "PublishSubject"
+        self.viewModel.getTasks(userId: dummyid)
 //        self.viewModel.output
 //            .observe(on: MainScheduler.instance)
 //            .filter{$0 != nil}
@@ -45,13 +45,13 @@ class TasksListVC: PBDataLoadingVC {
 //
 //                return cell
 //            }
-//        self.viewModel.output
-//                .observe(on: MainScheduler.instance)
-//                .filter{$0 != nil}
-//                .subscribe(onNext: { tasksList in
-//                print("List of posts:", tasksList)
-//                })
-//        .disposed(by: bag)
+        self.viewModel.output
+                .observe(on: MainScheduler.instance)
+                .filter{$0 != nil}
+                .subscribe(onNext: { tasksList in
+                print("List of posts:", tasksList)
+                })
+        .disposed(by: bag)
         
         configureTableView()
     }

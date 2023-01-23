@@ -32,6 +32,7 @@
 		0DBADC652969D3500033A150 /* PBDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBADC642969D3500033A150 /* PBDataLoadingVC.swift */; };
 		0DBADC672969D3C40033A150 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBADC662969D3C40033A150 /* LoginVC.swift */; };
 		0DBADC692969D4530033A150 /* PBAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBADC682969D4530033A150 /* PBAlertContainerView.swift */; };
+		0DBB2E1C2985B4B800757341 /* TaskListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBB2E1B2985B4B800757341 /* TaskListCoordinator.swift */; };
 		0DBC30A829745A3C00C74F3C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC30A729745A3C00C74F3C /* LoginViewModel.swift */; };
 		0DBC50EB29754C1F0007A3CC /* UINavigationController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC50EA29754C1F0007A3CC /* UINavigationController+Rx.swift */; };
 		0DBE60B229668A2300D6F400 /* PBEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60B129668A2300D6F400 /* PBEmptyStateView.swift */; };
@@ -70,6 +71,7 @@
 		0DBADC642969D3500033A150 /* PBDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBDataLoadingVC.swift; sourceTree = "<group>"; };
 		0DBADC662969D3C40033A150 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0DBADC682969D4530033A150 /* PBAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBAlertContainerView.swift; sourceTree = "<group>"; };
+		0DBB2E1B2985B4B800757341 /* TaskListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCoordinator.swift; sourceTree = "<group>"; };
 		0DBC30A729745A3C00C74F3C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0DBC50EA29754C1F0007A3CC /* UINavigationController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Rx.swift"; sourceTree = "<group>"; };
 		0DBE60B129668A2300D6F400 /* PBEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBEmptyStateView.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				0DB7253029785F8200336CDB /* ApplicationCoordinator.swift */,
 				0DB725342978726200336CDB /* MainCoordinator.swift */,
 				0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */,
+				0DBB2E1B2985B4B800757341 /* TaskListCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				0DBADC5D2969D0F90033A150 /* UIView+Ext.swift in Sources */,
 				0D450B51297C7A7200B85F49 /* PBTableViewCell.swift in Sources */,
 				0DBADC592969CE590033A150 /* PBAlertVC.swift in Sources */,
+				0DBB2E1C2985B4B800757341 /* TaskListCoordinator.swift in Sources */,
 				0DBADC612969D1F00033A150 /* Constants.swift in Sources */,
 				0DBADC692969D4530033A150 /* PBAlertContainerView.swift in Sources */,
 				0DB9D0C2296AE74500C1B353 /* ApiRouter.swift in Sources */,

@@ -21,7 +21,7 @@ class TasksListViewModel {
 
     // MARK: - Init
     init() {
-        
+       print("init lefutott")
     }
     
     var bag: DisposeBag = DisposeBag()

@@ -17,29 +17,34 @@ class MainCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     
-    lazy var loginVC: LoginVC = {
-        let vc = LoginVC()
-        return vc
-    }()
     
     func start() {
-           
-//        let loginCoordinator = LoginCoordinator()
-        let viewModel = LoginViewModel()
-        
-        rootViewController.setViewControllers([loginVC], animated: false)
-        
-        
-        loginVC.buttonClicked
-            .subscribe(onNext: { _ in self.showTasksList(in: self.rootViewController)})
-            .disposed(by: bag)
+        let child = LoginCoordinator(rootViewController: rootViewController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
     
     
-    private func showTasksList(in navigationController: UINavigationController) {
-        
-        let viewModel = TasksListViewModel()
-        let tasksListVC  = TasksListVC()
-        navigationController.pushViewController(tasksListVC, animated: true)
+    func loadTasksList() {
+        let child = TaskListCoordinator(rootViewController: rootViewController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
 }
+    
+    
+    //loginVC.buttonClicked
+    //    .subscribe(onNext: { _ in self.showTasksList(in: self.rootViewController)})
+    //    .disposed(by: bag)
+    //}
+    
+    
+    //    private func showTasksList(in navigationController: UINavigationController) {
+    //
+    //        let viewModel = TasksListViewModel()
+    //        let tasksListVC  = TasksListVC()
+    //        navigationController.pushViewController(tasksListVC, animated: true)
+    //    }
+
