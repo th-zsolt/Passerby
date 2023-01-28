@@ -23,8 +23,8 @@ class PBTableViewCell: UITableViewCell {
     }
     
     
-    func set(task: TaskItem) {
-        taskNameLabel.text = task.taskName
+    func update(_ taskName: String) {
+        taskNameLabel.text = taskName
     }
     
     

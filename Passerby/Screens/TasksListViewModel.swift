@@ -13,21 +13,39 @@ class TasksListViewModel {
 
         
     // MARK: - Input
-//    var input: BehaviorRelay<TaskItemResult> = BehaviorRelay<TaskItemResult>(value: TaskItemResult())
-//    let user = Driver<User>
+    let user: Driver<User>
+    
+    let accountButtonClicked: AnyObserver<Void>
 
     // MARK: - Output
-    let output = BehaviorRelay<[TaskItem]?>(value: nil)
+    let taskItems = BehaviorRelay<[TaskItem]?>(value: nil)
+    
+    let showAccount: Observable<Void>
+    
+//    let showFilter: Observable<Void>
+//
+//    let showAddTask: Observable<Void>
+//
+//    let showSelectedTask: Observable<Void>
 
     // MARK: - Init
-    init() {
-       print("init lefutott")
+    init(user: Driver<User>) {
+        
+        let _accountButtonClicked = PublishSubject<Void>()
+        self.accountButtonClicked = _accountButtonClicked.asObserver()
+        self.showAccount = _accountButtonClicked.asObservable()
+        
+        self.user = user
+        _ = user
+            .asObservable().subscribe(onNext: { _user in
+                self.getTasks(userId: _user.userId)
+            })
     }
-    
+        
     var bag: DisposeBag = DisposeBag()
     
     func getTasks(userId: String) {
-        print("userId")
+        print(userId)
         ApiClient.getTasks(userId: userId).asObservable().subscribe(
             onNext: { result in
                 self.mapTasks(result: result)
@@ -37,10 +55,15 @@ class TasksListViewModel {
         }).disposed(by: bag)
     }
     
+    
     func mapTasks(result: TaskItemResult) {
         
         let list: [TaskItem] = result.taskItems
-        self.output.accept(list)
+        self.taskItems.accept(list)
+    }
+    
+    
+    func accountButtonPushed() {
         
     }
     

@@ -13,16 +13,17 @@ import Alamofire
 class TasksListVC: PBDataLoadingVC {
     
     private let bag = DisposeBag()
-    
+        
     var viewModel: TasksListViewModel!
     
-    let tableView = UITableView()           
+    let tableView = UITableView()
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPink
-//        configureViewController()
+        configureViewController()
         bindTableView()
+        configureTableView()
     }
 
     
@@ -30,30 +31,48 @@ class TasksListVC: PBDataLoadingVC {
         view.backgroundColor = .systemBackground
         title = "Tickets"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.hidesBackButton = true
+        
+        let config = UIImage.SymbolConfiguration(scale: .large)
+
+        let profileButton = UIButton(type: .custom)
+        profileButton.setImage(UIImage(systemName: "person.circle", withConfiguration: config), for: .normal)
+        profileButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+        let barProfileButton = UIBarButtonItem(customView: profileButton)
+        
+        let filterButton = UIButton(type: .custom)
+        filterButton.setImage(UIImage(systemName: "line.3.horizontal.decrease.circle", withConfiguration: config), for: .normal)
+        filterButton.addTarget(self, action: #selector(filterTapped), for: .touchUpInside)
+        filterButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+        let barFilterButton = UIBarButtonItem(customView: filterButton)
+        
+        let addButton = UIButton(type: .custom)
+        addButton.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
+        addButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
+        addButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+        let barAddButton = UIBarButtonItem(customView: addButton)
+        
+        navigationItem.rightBarButtonItems = [barAddButton, barFilterButton,  barProfileButton]
+        
+        profileButton.rx.tap
+            .bind(to: viewModel.accountButtonClicked)
+            .disposed(by: bag)
+    }
+        
+    @objc func filterTapped() {
+        
     }
     
+    @objc func addTapped() {
+        
+    }
     
     func bindTableView() {
-        let dummyid = "PublishSubject"
-        self.viewModel.getTasks(userId: dummyid)
-//        self.viewModel.output
+        self.viewModel.taskItems.asDriver()
 //            .observe(on: MainScheduler.instance)
-//            .filter{$0 != nil}
-//            .bind(to: tableView.rx.items) {
-//                (tableView: tableView, index: Int, element: String) in
-//                let cell = UITableViewCell(style: .default, reuseIdentifier: "TableViewCell") as! PBTableViewCell
-//
-//                return cell
-//            }
-        self.viewModel.output
-                .observe(on: MainScheduler.instance)
-                .filter{$0 != nil}
-                .subscribe(onNext: { tasksList in
-                print("List of posts:", tasksList)
-                })
-        .disposed(by: bag)
-        
-        configureTableView()
+            .filter{$0 != nil}
+            .drive(onNext: { [weak self] _ in self?.tableView.reloadData() })
+            .disposed(by: bag)
     }
 
 
@@ -62,36 +81,25 @@ class TasksListVC: PBDataLoadingVC {
 
         tableView.frame = view.bounds
         tableView.rowHeight = 50
-//        tableView.dataSource = self
+        tableView.dataSource = self
 
-//        tableView.register(PBTableViewCell.self, forCellReuseIdentifier: PBTableViewCell.reuseID)
+        tableView.register(PBTableViewCell.self, forCellReuseIdentifier: PBTableViewCell.reuseID)
     }
-
-//    func updateUI(with tasks: [TaskItem]) {
-//        if tasks.isEmpty {
-//            print("hiba")
-//        } else {
-//            self.tasks = tasks
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//                self.view.bringSubviewToFront(self.tableView)
-//            }
-//        }
-//    }
-
 }
 
-//extension TasksListVC: UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return viewModel.output.value?.count ?? 0
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        return tableView.dequeueReusableCell(withIdentifier: PBTableViewCell.reuseID) as! PBTableViewCell
-//    }
-//
-//}
 
-//guard let task = viewModel.output.value?[indexPath.row] else  { return }
+extension TasksListVC: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.taskItems.value?.count ?? 0
+    }
+
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell =  tableView.dequeueReusableCell(withIdentifier: PBTableViewCell.reuseID) as? PBTableViewCell
+        cell?.update(viewModel.taskItems.value![indexPath.row].taskName)
+        print(viewModel.taskItems.value![indexPath.row].taskName)
+        return cell ?? UITableViewCell()
+        }
+}
+

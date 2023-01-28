@@ -12,10 +12,12 @@ import RxCocoa
 class LoginVC: PBDataLoadingVC {
     var viewModel: LoginViewModel!
     
-    private let buttonClickedSubject = PublishSubject<Bool>()
-    var buttonClicked: Observable <Bool> {
-        return buttonClickedSubject.asObservable()
-    }
+    private let bag = DisposeBag()
+    
+//    private let buttonClickedSubject = PublishSubject<Bool>()
+//    var buttonClicked: Observable <Bool> {
+//        return buttonClickedSubject.asObservable()
+//    }
             
     let logoImageView = UIImageView()
     let userNameTextField = PBTextField()
@@ -48,18 +50,6 @@ class LoginVC: PBDataLoadingVC {
     }
     
     
-    @objc func pushCocktailsListVC() {
-//        guard isCocktailNameEntered else {
-//            presentCYAlert(title: "Empty Cocktail Name", message: "Please enter a cocktail name.", buttonTitle: "Ok")
-//            return
-//        }
-//        cocktailNameTextField.resignFirstResponder()
-//
-//        let cocktailsListVC = CocktailsListVC(cocktailName: cocktailNameTextField.text!)
-//        navigationController?.pushViewController(cocktailsListVC, animated: true)
-        buttonClickedSubject.onNext(true)
-    }
-    
     func configureLogoImageView() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.image = Constants.Images.logo
@@ -88,8 +78,14 @@ class LoginVC: PBDataLoadingVC {
     
     
     func configureCallToActionButton() {
-
-        callToActionButton.addTarget(self, action: #selector(pushCocktailsListVC), for: .touchUpInside)
+        callToActionButton.rx.tap
+            .withLatestFrom(userNameTextField.rx.text.orEmpty)
+            .subscribe(onNext: { loginName in
+                if loginName != "" {
+                    self.viewModel.getUser(loginName: loginName)
+                }
+            })
+            .disposed(by: bag)
         
         NSLayoutConstraint.activate([
             callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),

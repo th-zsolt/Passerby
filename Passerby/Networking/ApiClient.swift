@@ -16,6 +16,15 @@ class ApiClient {
         return request(ApiRouter.getTasks(userId: userId))
     }
     
+    static func getUser(loginName: String) -> Observable<User> {
+        return Observable.of(User(userId: "1",
+                            loginName: "teszt",
+                            fullName: "Teszt Elek",
+                            teamname: "A-Team",
+                            userTaskID: ["1", "2"],
+                            permissions: ["Write", "Edit", "Admin"]))
+    }
+    
     //-------------------------------------------------------------------------------------------------
     //MARK: - The request function to get results in an Observable
     private static func request<T: Codable> (_ urlConvertible: URLRequestConvertible) -> Observable<T> {

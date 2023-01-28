@@ -10,14 +10,32 @@ import RxCocoa
 import RxSwift
 
 class LoginViewModel {
+    
+    private let bag = DisposeBag()
+    
+    // MARK: - Input
+    let loginName: AnyObserver<String>
+    
+    // MARK: - Output
+    let user = BehaviorRelay<User?>(value: nil)
 
-//    let dummyUser: Observable<User>
-    let dummyUser = Observable.of(User(userId: "1", loginName: "Test1", fullName: "Teszt Elek", userTaskID: ["1","2","3"]))
-                              
+    // MARK: - Init
+                        
     init() {
-//        self.dummyUser = dummyUser
+        let _loginName = PublishSubject<String>()
+        self.loginName = _loginName.asObserver()
     }
     
     
-    
+    func getUser(loginName: String) {
+        print(loginName)
+//        let _dummyUser = User(userId: "1", loginName: "Test1", fullName: "Teszt Elek", userTaskID: ["1","2","3"])
+//        print(_dummyUser)
+        ApiClient.getUser(loginName: loginName).asObservable().subscribe(
+            onNext: { result in
+                self.user.accept(result)
+        }, onError: { error in
+            print(error)
+        }).disposed(by: bag)
+    }
 }

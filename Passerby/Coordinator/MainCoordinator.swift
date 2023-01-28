@@ -26,8 +26,8 @@ class MainCoordinator: Coordinator {
     }
     
     
-    func loadTasksList() {
-        let child = TaskListCoordinator(rootViewController: rootViewController)
+    func loadTasksList(user: User) {
+        let child = TaskListCoordinator(rootViewController: rootViewController, user: user)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
