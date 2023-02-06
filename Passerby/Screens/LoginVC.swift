@@ -66,7 +66,6 @@ class LoginVC: PBDataLoadingVC {
     
     
     func configureTextField() {
-        userNameTextField.delegate = self
         
         NSLayoutConstraint.activate([
             userNameTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 48),
@@ -83,6 +82,19 @@ class LoginVC: PBDataLoadingVC {
             .subscribe(onNext: { loginName in
                 if loginName != "" {
                     self.viewModel.getUser(loginName: loginName)
+                } else {
+                    self.presentPBAlert(title: "Empty Login Name", message: "Please enter the login name", buttonTitle: "Ok")
+                }
+            })
+            .disposed(by: bag)
+        
+        userNameTextField.rx.controlEvent(.editingDidEndOnExit)
+            .withLatestFrom(userNameTextField.rx.text.orEmpty)
+            .subscribe(onNext: { loginName in
+                if loginName != "" {
+                    self.viewModel.getUser(loginName: loginName)
+                } else {
+                    self.presentPBAlert(title: "Empty Login Name", message: "Please enter the login name", buttonTitle: "Ok")
                 }
             })
             .disposed(by: bag)
@@ -95,17 +107,7 @@ class LoginVC: PBDataLoadingVC {
         ])
     }
     
-    
-//    func bindViewModel() {
-//
-//    }
-    
+
 }
 
-extension LoginVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        pushCocktailsListVC()
-        
-        return true
-    }
-}
+

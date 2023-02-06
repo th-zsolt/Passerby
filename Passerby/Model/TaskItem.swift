@@ -9,10 +9,18 @@ import Foundation
 
 struct TaskItem: Codable {
     
+
     let taskId: String
     let taskName: String
     let taskPrio: Int
+    let taskWeight: Int
+    let creationDate: String
+    let modifiedDate: String
+    let creator: String
+    let assigned: String
+    let description: String
     
+
 //    init() {
 //        self.taskId = ""
 //        self.taskName = ""
@@ -29,3 +37,14 @@ struct TaskItemResult: Codable {
     }
 }
 
+//struct TaskPrio {
+//        var taskPrio = [1: "Low",
+//                        2: "Medium",
+//                        3: "High"]
+//}
+//
+//struct TaskWeight {
+//        var taskWeight = [1: "Low",
+//                        2: "Medium",
+//                        3: "High"]
+//}

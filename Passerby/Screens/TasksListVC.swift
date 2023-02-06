@@ -97,7 +97,7 @@ extension TasksListVC: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: PBTableViewCell.reuseID) as? PBTableViewCell
-        cell?.update(viewModel.taskItems.value![indexPath.row].taskName)
+        cell?.update(viewModel.taskItems.value![indexPath.row].taskName, priority: viewModel.taskItems.value![indexPath.row].taskPrio)
         print(viewModel.taskItems.value![indexPath.row].taskName)
         return cell ?? UITableViewCell()
         }
