@@ -23,7 +23,7 @@ class AccountVC: UIViewController {
     )
     let teamLabel = PBTertiaryTitleLabel(textAlignment: .center, fontSize: 26)
     let permissionLabel = PBSecondaryTitleLabel(fontSize: 20)
-    let permissionsLabelValue = PBBodyLabel(textAlignment: .left)
+    let permissionsLabelValue = PBBodyLabelValue(textAlignment: .left)
     let openTicketsLabel = PBSecondaryTitleLabel(fontSize: 20)
 
     

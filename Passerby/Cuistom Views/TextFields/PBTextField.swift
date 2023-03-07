@@ -18,6 +18,13 @@ class PBTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    convenience init(placeholder: String) {
+        self.init(frame: .zero)
+        self.placeholder = placeholder
+    }
+    
+    
     func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -36,6 +43,6 @@ class PBTextField: UITextField {
         autocorrectionType = .no
         returnKeyType = .go
         clearButtonMode = .whileEditing
-        placeholder = "Enter the login name"
+
     }
 }

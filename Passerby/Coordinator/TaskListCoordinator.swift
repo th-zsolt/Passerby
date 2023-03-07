@@ -39,6 +39,9 @@ class TaskListCoordinator: Coordinator {
         viewModel.showAccount
             .subscribe(onNext: { [weak self] in self?.showAccount(user: currentUser) })
             .disposed(by: bag)
+        
+        viewModel.showAddTask
+            .subscribe(onNext: { [weak self] in self?.showAddTask() })
     }
     
     
@@ -52,4 +55,45 @@ class TaskListCoordinator: Coordinator {
         accountVC.viewModel = accountViewModel
         rootViewController.pushViewController(accountVC, animated: true)
     }
+    
+    
+    private func showAddTask() {
+        lazy var editTaskVC: EditTaskVC = {
+            let vc = EditTaskVC()
+            return vc
+        }()
+        
+        lazy var prioSegmentedVC: PrioSegmentedVC = {
+            let vc = PrioSegmentedVC()
+            return vc
+        }()
+        lazy var weightSegmentedVC: WeightSegmentedVC = {
+            let vc = WeightSegmentedVC()
+            return vc
+        }()
+        lazy var ownerPickerVC: OwnerPickerVC = {
+            let vc = OwnerPickerVC()
+            return vc
+        }()
+        lazy var statePickerVC: StatePickerVC = {
+            let vc = StatePickerVC()
+            return vc
+        }()
+                
+        let editTaskViewModel = EditTaskViewModel(user: self.user)
+        editTaskVC.viewModel = editTaskViewModel
+        
+        editTaskVC.prioSegmentedVC = prioSegmentedVC
+        editTaskVC.weightSegmentedVC = weightSegmentedVC
+        editTaskVC.ownerPickerVC = ownerPickerVC
+        editTaskVC.statePickerVC = statePickerVC
+        
+        prioSegmentedVC.viewModel = editTaskViewModel
+        weightSegmentedVC.viewModel = editTaskViewModel
+        ownerPickerVC.viewModel = editTaskViewModel
+        statePickerVC.viewModel = editTaskViewModel
+        
+        rootViewController.pushViewController(editTaskVC, animated: true)
+    }
 }
+

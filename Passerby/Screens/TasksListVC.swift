@@ -42,13 +42,11 @@ class TasksListVC: PBDataLoadingVC {
         
         let filterButton = UIButton(type: .custom)
         filterButton.setImage(UIImage(systemName: "line.3.horizontal.decrease.circle", withConfiguration: config), for: .normal)
-        filterButton.addTarget(self, action: #selector(filterTapped), for: .touchUpInside)
         filterButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         let barFilterButton = UIBarButtonItem(customView: filterButton)
         
         let addButton = UIButton(type: .custom)
         addButton.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
-        addButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
         addButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         let barAddButton = UIBarButtonItem(customView: addButton)
         
@@ -57,15 +55,12 @@ class TasksListVC: PBDataLoadingVC {
         profileButton.rx.tap
             .bind(to: viewModel.accountButtonClicked)
             .disposed(by: bag)
-    }
         
-    @objc func filterTapped() {
-        
+        addButton.rx.tap
+            .bind(to: viewModel.addButtonClicked)
+            .disposed(by: bag)
     }
-    
-    @objc func addTapped() {
-        
-    }
+            
     
     func bindTableView() {
         self.viewModel.taskItems.asDriver()

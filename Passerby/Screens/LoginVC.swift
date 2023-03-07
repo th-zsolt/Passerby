@@ -20,7 +20,7 @@ class LoginVC: PBDataLoadingVC {
 //    }
             
     let logoImageView = UIImageView()
-    let userNameTextField = PBTextField()
+    let userNameTextField = PBTextField(placeholder: "Enter the login name")
     let callToActionButton = PBButton(color: .systemGreen, title: "Login")
     
     var isLoginNameEntered: Bool {return !userNameTextField.text!.isEmpty }

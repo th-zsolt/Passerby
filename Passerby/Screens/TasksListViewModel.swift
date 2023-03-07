@@ -16,15 +16,16 @@ class TasksListViewModel {
     let user: Driver<User>
     
     let accountButtonClicked: AnyObserver<Void>
+    let addButtonClicked: AnyObserver<Void>
 
     // MARK: - Output
     let taskItems = BehaviorRelay<[TaskItem]?>(value: nil)
     
     let showAccount: Observable<Void>
-    
+        
 //    let showFilter: Observable<Void>
 //
-//    let showAddTask: Observable<Void>
+    let showAddTask: Observable<Void>
 //
 //    let showSelectedTask: Observable<Void>
 
@@ -34,6 +35,10 @@ class TasksListViewModel {
         let _accountButtonClicked = PublishSubject<Void>()
         self.accountButtonClicked = _accountButtonClicked.asObserver()
         self.showAccount = _accountButtonClicked.asObservable()
+        
+        let _addButtonClicked = PublishSubject<Void>()
+        self.addButtonClicked = _addButtonClicked.asObserver()
+        self.showAddTask = _addButtonClicked.asObservable()
         
         self.user = user
         _ = user

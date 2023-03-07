@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D2204E229C61F84006761FF /* PBTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2204E129C61F84006761FF /* PBTextView.swift */; };
+		0D2204E429C625F0006761FF /* WeightSegmentedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2204E329C625F0006761FF /* WeightSegmentedVC.swift */; };
+		0D2204E729C62788006761FF /* PBBodyLabelValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2204E629C62788006761FF /* PBBodyLabelValue.swift */; };
+		0D44181329C731130054503F /* OwnerPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44181229C731130054503F /* OwnerPickerVC.swift */; };
 		0D450B4D297C686E00B85F49 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B4C297C686E00B85F49 /* User.swift */; };
 		0D450B4F297C6BF700B85F49 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */; };
 		0D450B51297C7A7200B85F49 /* PBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */; };
 		0D710383297C458A00141A67 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D710382297C458A00141A67 /* Coordinator.swift */; };
+		0DA8DDB729BE1FB7009A0297 /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDB629BE1FB7009A0297 /* EditTaskVC.swift */; };
+		0DA8DDB929BE258E009A0297 /* EditTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDB829BE258E009A0297 /* EditTaskViewModel.swift */; };
+		0DA8DDBB29BE41BE009A0297 /* PrioSegmentedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDBA29BE41BE009A0297 /* PrioSegmentedVC.swift */; };
 		0DB42C662990184900A47500 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB42C652990184900A47500 /* AccountVC.swift */; };
 		0DB42C682990186900A47500 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB42C672990186800A47500 /* AccountViewModel.swift */; };
 		0DB625B929ABC86A0036381D /* PBTertiaryTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB625B829ABC86A0036381D /* PBTertiaryTitleLabel.swift */; };
@@ -37,8 +44,10 @@
 		0DBADC672969D3C40033A150 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBADC662969D3C40033A150 /* LoginVC.swift */; };
 		0DBADC692969D4530033A150 /* PBAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBADC682969D4530033A150 /* PBAlertContainerView.swift */; };
 		0DBB2E1C2985B4B800757341 /* TaskListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBB2E1B2985B4B800757341 /* TaskListCoordinator.swift */; };
+		0DBB677129CA21B400769E72 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBB677029CA21B400769E72 /* Date+Ext.swift */; };
 		0DBC30A829745A3C00C74F3C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC30A729745A3C00C74F3C /* LoginViewModel.swift */; };
 		0DBC50EB29754C1F0007A3CC /* UINavigationController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC50EA29754C1F0007A3CC /* UINavigationController+Rx.swift */; };
+		0DBD21FA29C78A8500980609 /* StatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBD21F929C78A8500980609 /* StatePickerVC.swift */; };
 		0DBE60B229668A2300D6F400 /* PBEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60B129668A2300D6F400 /* PBEmptyStateView.swift */; };
 		0DBE60B929668B1E00D6F400 /* PBTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60B829668B1E00D6F400 /* PBTitleLabel.swift */; };
 		0DBE60BB29668B3B00D6F400 /* PBBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60BA29668B3B00D6F400 /* PBBodyLabel.swift */; };
@@ -48,10 +57,17 @@
 
 /* Begin PBXFileReference section */
 		092E6CC8C4490C123CB516BC /* Pods-Passerby.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passerby.debug.xcconfig"; path = "Target Support Files/Pods-Passerby/Pods-Passerby.debug.xcconfig"; sourceTree = "<group>"; };
+		0D2204E129C61F84006761FF /* PBTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTextView.swift; sourceTree = "<group>"; };
+		0D2204E329C625F0006761FF /* WeightSegmentedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSegmentedVC.swift; sourceTree = "<group>"; };
+		0D2204E629C62788006761FF /* PBBodyLabelValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBodyLabelValue.swift; sourceTree = "<group>"; };
+		0D44181229C731130054503F /* OwnerPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerPickerVC.swift; sourceTree = "<group>"; };
 		0D450B4C297C686E00B85F49 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTableViewCell.swift; sourceTree = "<group>"; };
 		0D710382297C458A00141A67 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		0DA8DDB629BE1FB7009A0297 /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
+		0DA8DDB829BE258E009A0297 /* EditTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewModel.swift; sourceTree = "<group>"; };
+		0DA8DDBA29BE41BE009A0297 /* PrioSegmentedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrioSegmentedVC.swift; sourceTree = "<group>"; };
 		0DB42C652990184900A47500 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		0DB42C672990186800A47500 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		0DB625B829ABC86A0036381D /* PBTertiaryTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTertiaryTitleLabel.swift; sourceTree = "<group>"; };
@@ -80,8 +96,10 @@
 		0DBADC662969D3C40033A150 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0DBADC682969D4530033A150 /* PBAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBAlertContainerView.swift; sourceTree = "<group>"; };
 		0DBB2E1B2985B4B800757341 /* TaskListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCoordinator.swift; sourceTree = "<group>"; };
+		0DBB677029CA21B400769E72 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		0DBC30A729745A3C00C74F3C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0DBC50EA29754C1F0007A3CC /* UINavigationController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Rx.swift"; sourceTree = "<group>"; };
+		0DBD21F929C78A8500980609 /* StatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePickerVC.swift; sourceTree = "<group>"; };
 		0DBE60B129668A2300D6F400 /* PBEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBEmptyStateView.swift; sourceTree = "<group>"; };
 		0DBE60B829668B1E00D6F400 /* PBTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTitleLabel.swift; sourceTree = "<group>"; };
 		0DBE60BA29668B3B00D6F400 /* PBBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBodyLabel.swift; sourceTree = "<group>"; };
@@ -102,6 +120,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D2204DE29C61C5F006761FF /* TextViews */ = {
+			isa = PBXGroup;
+			children = (
+				0D2204E129C61F84006761FF /* PBTextView.swift */,
+			);
+			path = TextViews;
+			sourceTree = "<group>";
+		};
 		0DB6F86F296543AF00484156 = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +208,7 @@
 				0DBADC5C2969D0F90033A150 /* UIView+Ext.swift */,
 				0DBC50EA29754C1F0007A3CC /* UINavigationController+Rx.swift */,
 				0DBA1F0329AE8D710056E982 /* UIViewController+Ext.swift */,
+				0DBB677029CA21B400769E72 /* Date+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -205,6 +232,8 @@
 				0DBADC622969D2FA0033A150 /* TasksListVC.swift */,
 				0DB42C672990186800A47500 /* AccountViewModel.swift */,
 				0DB42C652990184900A47500 /* AccountVC.swift */,
+				0DA8DDB829BE258E009A0297 /* EditTaskViewModel.swift */,
+				0DA8DDB629BE1FB7009A0297 /* EditTaskVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -214,6 +243,7 @@
 			children = (
 				0DBE60B629668AB400D6F400 /* Labels */,
 				0DBE60B529668AAE00D6F400 /* Buttons */,
+				0D2204DE29C61C5F006761FF /* TextViews */,
 				0DBE60B429668AA600D6F400 /* TextFields */,
 				0DBE60B329668A9900D6F400 /* ImageViews */,
 				0DBE60B0296689E500D6F400 /* Views */,
@@ -228,6 +258,10 @@
 			children = (
 				0DBADC582969CE590033A150 /* PBAlertVC.swift */,
 				0DBADC642969D3500033A150 /* PBDataLoadingVC.swift */,
+				0DA8DDBA29BE41BE009A0297 /* PrioSegmentedVC.swift */,
+				0D2204E329C625F0006761FF /* WeightSegmentedVC.swift */,
+				0D44181229C731130054503F /* OwnerPickerVC.swift */,
+				0DBD21F929C78A8500980609 /* StatePickerVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -272,6 +306,7 @@
 				0DBE60BA29668B3B00D6F400 /* PBBodyLabel.swift */,
 				0DBE60BC29668E0D00D6F400 /* PBSecondaryTitleLabel.swift */,
 				0DB625B829ABC86A0036381D /* PBTertiaryTitleLabel.swift */,
+				0D2204E629C62788006761FF /* PBBodyLabelValue.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -420,16 +455,20 @@
 				0DBA1F0429AE8D710056E982 /* UIViewController+Ext.swift in Sources */,
 				0D450B4F297C6BF700B85F49 /* LoginCoordinator.swift in Sources */,
 				0DB625B929ABC86A0036381D /* PBTertiaryTitleLabel.swift in Sources */,
+				0DBB677129CA21B400769E72 /* Date+Ext.swift in Sources */,
+				0D44181329C731130054503F /* OwnerPickerVC.swift in Sources */,
 				0DBE60BD29668E0D00D6F400 /* PBSecondaryTitleLabel.swift in Sources */,
 				0DB9D0BC296AE6A900C1B353 /* TaskItem.swift in Sources */,
 				0DB6F87C296543B000484156 /* AppDelegate.swift in Sources */,
 				0D450B4D297C686E00B85F49 /* User.swift in Sources */,
+				0DBD21FA29C78A8500980609 /* StatePickerVC.swift in Sources */,
 				0DB42C662990184900A47500 /* AccountVC.swift in Sources */,
 				0DBE60B929668B1E00D6F400 /* PBTitleLabel.swift in Sources */,
 				0DB9D0C4296AE89600C1B353 /* TasksListViewModel.swift in Sources */,
 				0DB42C682990186900A47500 /* AccountViewModel.swift in Sources */,
 				0DBE60B229668A2300D6F400 /* PBEmptyStateView.swift in Sources */,
 				0DBADC652969D3500033A150 /* PBDataLoadingVC.swift in Sources */,
+				0DA8DDBB29BE41BE009A0297 /* PrioSegmentedVC.swift in Sources */,
 				0DBADC632969D2FA0033A150 /* TasksListVC.swift in Sources */,
 				0DBC50EB29754C1F0007A3CC /* UINavigationController+Rx.swift in Sources */,
 				0DB725352978726200336CDB /* MainCoordinator.swift in Sources */,
@@ -437,17 +476,22 @@
 				0D710383297C458A00141A67 /* Coordinator.swift in Sources */,
 				0DB6F87E296543B000484156 /* SceneDelegate.swift in Sources */,
 				0DBADC672969D3C40033A150 /* LoginVC.swift in Sources */,
+				0DA8DDB729BE1FB7009A0297 /* EditTaskVC.swift in Sources */,
 				0DB9D0BE296AE70500C1B353 /* ApiClient.swift in Sources */,
 				0DB9D0C0296AE73400C1B353 /* ApiError.swift in Sources */,
 				0DBADC5D2969D0F90033A150 /* UIView+Ext.swift in Sources */,
+				0D2204E229C61F84006761FF /* PBTextView.swift in Sources */,
 				0D450B51297C7A7200B85F49 /* PBTableViewCell.swift in Sources */,
 				0DBADC592969CE590033A150 /* PBAlertVC.swift in Sources */,
+				0D2204E729C62788006761FF /* PBBodyLabelValue.swift in Sources */,
 				0DBB2E1C2985B4B800757341 /* TaskListCoordinator.swift in Sources */,
 				0DBADC612969D1F00033A150 /* Constants.swift in Sources */,
 				0DBADC692969D4530033A150 /* PBAlertContainerView.swift in Sources */,
+				0DA8DDB929BE258E009A0297 /* EditTaskViewModel.swift in Sources */,
 				0DB9D0C2296AE74500C1B353 /* ApiRouter.swift in Sources */,
 				0DBE60BB29668B3B00D6F400 /* PBBodyLabel.swift in Sources */,
 				0DBADC542969CD190033A150 /* PBTextField.swift in Sources */,
+				0D2204E429C625F0006761FF /* WeightSegmentedVC.swift in Sources */,
 				0DB7253129785F8200336CDB /* ApplicationCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
