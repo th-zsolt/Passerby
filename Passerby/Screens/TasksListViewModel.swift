@@ -11,6 +11,7 @@ import RxSwift
 
 class TasksListViewModel {
 
+    var bag: DisposeBag = DisposeBag()
         
     // MARK: - Input
     let user: Driver<User>
@@ -46,9 +47,7 @@ class TasksListViewModel {
                 self.getTasks(userId: _user.userId)
             })
     }
-        
-    var bag: DisposeBag = DisposeBag()
-    
+            
     func getTasks(userId: String) {
         print(userId)
         ApiClient.getTasks(userId: userId).asObservable().subscribe(

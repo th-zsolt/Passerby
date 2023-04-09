@@ -11,10 +11,11 @@ import UIKit
 
 class OwnerPickerVC: UIViewController {
     
-    var viewModel: EditTaskViewModel!
+    var viewModel: NewTaskViewModel!
     private let bag = DisposeBag()
-
-    let data = ["Kis János", "Tóth Tamás", "Kincses Ernő", "Westwood Aladár", "Kisfaludy Szilvia", "Kecskés Kincső", "Szalma József Benedek"]
+    
+    var teamUser: [TeamUser]?
+    var teamUserNames = [] as NSMutableArray
     
     let picker = UIPickerView()
     
@@ -47,13 +48,43 @@ class OwnerPickerVC: UIViewController {
             picker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             picker.topAnchor.constraint(equalTo: view.topAnchor)
         ])
+        
+
+        viewModel.teamUser
+            .subscribe(onNext: { teamUser in
+                self.teamUser = teamUser
+                if self.teamUser != nil {
+                    self.createTeamUserNames(teamUser: self.teamUser!)
+                }
+            })
+            .disposed(by: bag)
+        
+        
+        picker.rx.itemSelected.asObservable()
+            .map({ (row: Int, component: Int) in
+                return self.mapUserIDFromRow(row: row)
+            })
+            .subscribe(viewModel.selectedOwnerSubject)
+            .disposed(by: bag)
+    }
+    
+    
+    func createTeamUserNames(teamUser: [TeamUser]) {
+        teamUser.forEach { result in
+            self.teamUserNames.add(result.userName)
+        }
+    }
+
+    
+    func mapUserIDFromRow(row: Int) -> String {
+        return teamUser![row].userId
     }
         
 }
 
 extension OwnerPickerVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return data.count
+        return teamUserNames.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -61,7 +92,7 @@ extension OwnerPickerVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            return data[row]
+        return teamUserNames[row] as? String
     }
     
     

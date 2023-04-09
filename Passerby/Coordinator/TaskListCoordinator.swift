@@ -58,8 +58,8 @@ class TaskListCoordinator: Coordinator {
     
     
     private func showAddTask() {
-        lazy var editTaskVC: EditTaskVC = {
-            let vc = EditTaskVC()
+        lazy var editTaskVC: NewTaskVC = {
+            let vc = NewTaskVC()
             return vc
         }()
         
@@ -75,23 +75,23 @@ class TaskListCoordinator: Coordinator {
             let vc = OwnerPickerVC()
             return vc
         }()
-        lazy var statePickerVC: StatePickerVC = {
-            let vc = StatePickerVC()
-            return vc
-        }()
+//        lazy var statePickerVC: StatePickerVC = {
+//            let vc = StatePickerVC()
+//            return vc
+//        }()
                 
-        let editTaskViewModel = EditTaskViewModel(user: self.user)
+        let editTaskViewModel = NewTaskViewModel(user: self.user)
         editTaskVC.viewModel = editTaskViewModel
         
         editTaskVC.prioSegmentedVC = prioSegmentedVC
         editTaskVC.weightSegmentedVC = weightSegmentedVC
         editTaskVC.ownerPickerVC = ownerPickerVC
-        editTaskVC.statePickerVC = statePickerVC
+//        editTaskVC.statePickerVC = statePickerVC
         
         prioSegmentedVC.viewModel = editTaskViewModel
         weightSegmentedVC.viewModel = editTaskViewModel
         ownerPickerVC.viewModel = editTaskViewModel
-        statePickerVC.viewModel = editTaskViewModel
+//        statePickerVC.viewModel = editTaskViewModel
         
         rootViewController.pushViewController(editTaskVC, animated: true)
     }

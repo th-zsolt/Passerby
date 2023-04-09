@@ -13,14 +13,16 @@ struct User: Codable {
     let loginName: String
     let fullName: String
     let teamName: String
+    let teamId: String
     let userTaskID: [String]
     let permissions: [String]
     
-    init(userId: String, loginName: String, fullName: String, teamname: String, userTaskID: [String], permissions: [String]) {
+    init(userId: String, loginName: String, fullName: String, teamname: String, teamId: String, userTaskID: [String], permissions: [String]) {
         self.userId = userId
         self.loginName = loginName
         self.fullName = fullName
         self.teamName = teamname
+        self.teamId = teamId
         self.userTaskID = userTaskID
         self.permissions = permissions
     }

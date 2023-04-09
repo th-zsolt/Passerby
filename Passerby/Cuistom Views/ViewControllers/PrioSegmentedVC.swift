@@ -10,12 +10,11 @@ import UIKit
 
 class PrioSegmentedVC: UIViewController {
 
-    var viewModel: EditTaskViewModel!
+    var viewModel: NewTaskViewModel!
     private let bag = DisposeBag()
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         createPrioSegmentedControl()
     }
     
@@ -33,13 +32,7 @@ class PrioSegmentedVC: UIViewController {
         ])
      
         prioSegmentedControl.rx.selectedSegmentIndex.changed
-            .subscribe(viewModel.selectedPrioValueSubject)
-            .disposed(by: bag)
-        
-        viewModel.prioValue
-            .drive(onNext: { valami in
-                    print(valami)
-                        })
+            .subscribe(viewModel.selectedPrioSubject)
             .disposed(by: bag)
     }
     

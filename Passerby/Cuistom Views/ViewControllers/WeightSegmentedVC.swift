@@ -11,7 +11,8 @@ import UIKit
 
 class WeightSegmentedVC: UIViewController {
     
-    var viewModel: EditTaskViewModel!
+    var viewModel: NewTaskViewModel!
+    private let bag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,6 @@ class WeightSegmentedVC: UIViewController {
     func createWeightSegmentedControl() {
         let items = ["Low", "Medium", "High"]
         let weightSegmentedControl = UISegmentedControl(items: items)
-        weightSegmentedControl.addTarget(self, action: #selector(weightDidChange(_:)), for: .valueChanged)
         weightSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(weightSegmentedControl)
         
@@ -30,19 +30,9 @@ class WeightSegmentedVC: UIViewController {
             weightSegmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             weightSegmentedControl.topAnchor.constraint(equalTo: view.topAnchor)
         ])
+        
+        weightSegmentedControl.rx.selectedSegmentIndex.changed
+            .subscribe(viewModel.selectedWeightSubject)
+            .disposed(by: bag)
     }
-
-    @objc func weightDidChange(_ segmentedControl: UISegmentedControl) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            print("Low")
-        case 1:
-            print("Medium")
-        case 2:
-            print("High")
-        default:
-            print("error")
-        }
-    }
-
 }

@@ -9,19 +9,19 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class EditTaskVC: UIViewController, UIScrollViewDelegate {
+class NewTaskVC: UIViewController, UIScrollViewDelegate {
 
     private let bag = DisposeBag()
-    var viewModel: EditTaskViewModel!
+    var viewModel: NewTaskViewModel!
     
     var prioSegmentedVC: PrioSegmentedVC!
     var weightSegmentedVC: WeightSegmentedVC!
     var ownerPickerVC: OwnerPickerVC!
-    var statePickerVC: StatePickerVC!
+//    var statePickerVC: StatePickerVC!
     
     let scrollView = UIScrollView()
     let contentView = UIView()
-    let statePickerView = UIView()
+//    let statePickerView = UIView()
     let ownerPickerView = UIView()
     let prioView = UIView()
     let weightView = UIView()
@@ -34,7 +34,7 @@ class EditTaskVC: UIViewController, UIScrollViewDelegate {
     let reporterLabel = PBBodyLabel(textAlignment: .left)
     let reporterLabelValue = PBBodyLabelValue(textAlignment: .left)
     let ownerLabel = PBBodyLabel(textAlignment: .left)
-    let stateLabel = PBBodyLabel(textAlignment: .left)
+//    let stateLabel = PBBodyLabel(textAlignment: .left)
     let creationDateLabel = PBBodyLabel(textAlignment: .left)
     let creationDateLabelValue = PBBodyLabelValue(textAlignment: .left)
     let modificationDateLabel = PBBodyLabel(textAlignment: .left)
@@ -43,15 +43,13 @@ class EditTaskVC: UIViewController, UIScrollViewDelegate {
     let descriptionTextView = PBTextView(frame: CGRect(x: 20.0, y: 90.0, width: 250.0, height: 200.0))
     
 //    let commentButton = PBButton(color: .systemBlue, title: "Comments")
-    
-    var isTitleEntered: Bool {return !nameTextField.text!.isEmpty }
-    
-    
+       
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureScrollView()
         configureUIElements()
+        getInitialTaskValues()
         createDismissKeyboardTapGesture()
     }
 
@@ -62,21 +60,18 @@ class EditTaskVC: UIViewController, UIScrollViewDelegate {
         
         let saveButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(createTask))
         navigationItem.rightBarButtonItem = saveButton
+        
+        saveButton.isEnabled = false
+        
+        nameTextField.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledTitleSubject).disposed(by: bag)
+        descriptionTextView.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledDescriptionSubject).disposed(by: bag)
+        
+        viewModel.isValid().bind(to: saveButton.rx.isEnabled).disposed(by: bag)
+        
+        saveButton.rx.tap.subscribe(onNext: { self.viewModel.createTask() }).disposed(by: bag)
     }
     
     @objc func createTask() {
-        guard isTitleEntered else {
-            presentPBAlert(title: "Empty Title", message: "Please enter a title for the ticket.", buttonTitle: "Ok")
-            return
-        }
-        
-//        print(viewModel.prioValue)
-//        guard isTitleEntered else {
-//            presentPBAlert(title: "Empty Title", message: "Please enter a title for the ticket.", buttonTitle: "Ok")
-//            return
-//        }
-                
-
     }
         
     
@@ -88,11 +83,22 @@ class EditTaskVC: UIViewController, UIScrollViewDelegate {
                          
         NSLayoutConstraint.activate([
              contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-             contentView.heightAnchor.constraint(equalToConstant: 1200)
+             contentView.heightAnchor.constraint(equalToConstant: 800)
+//             1200
         ])
 
-        contentView.addSubViews(nameTextField, taskIdLabel, taskIdLabelValue, prioLabel, prioView, weightLabel, weightView, reporterLabel, reporterLabelValue, ownerLabel, ownerPickerView, stateLabel, statePickerView, creationDateLabel, creationDateLabelValue,    modificationDateLabel, modificationDateLabelValue, descriptionLabel, descriptionTextView)
+        contentView.addSubViews(nameTextField, taskIdLabel, taskIdLabelValue, prioLabel, prioView, weightLabel, weightView, reporterLabel, reporterLabelValue, ownerLabel, ownerPickerView, creationDateLabel, creationDateLabelValue,    modificationDateLabel, modificationDateLabelValue, descriptionLabel, descriptionTextView)
         
+    }
+    
+    
+    func getInitialTaskValues() {
+        _ = self.viewModel.initialTask
+            .subscribe(onNext: { initialTaskViewModel in
+                self.creationDateLabelValue.text = initialTaskViewModel.creationDate
+                self.modificationDateLabelValue.text = initialTaskViewModel.modifiedDate
+                self.reporterLabelValue.text = initialTaskViewModel.creator
+            })
     }
     
         
@@ -102,27 +108,24 @@ class EditTaskVC: UIViewController, UIScrollViewDelegate {
         prioView.translatesAutoresizingMaskIntoConstraints = false
         weightView.translatesAutoresizingMaskIntoConstraints = false
         ownerPickerView.translatesAutoresizingMaskIntoConstraints = false
-        stateLabel.translatesAutoresizingMaskIntoConstraints = false
-        statePickerView.translatesAutoresizingMaskIntoConstraints = false
+//        stateLabel.translatesAutoresizingMaskIntoConstraints = false
+//        statePickerView.translatesAutoresizingMaskIntoConstraints = false
         
         taskIdLabel.text = "ID:"
         taskIdLabelValue.text = "1234"
         prioLabel.text = "Priority:"
         weightLabel.text = "Weight:"
         reporterLabel.text = "Reporter:"
-        reporterLabelValue.text = "Teszt Elek"
         ownerLabel.text = "Owner:"
         creationDateLabel.text = "Created:"
-        creationDateLabelValue.text = "2022.12.31"
         modificationDateLabel.text = "Last modified:"
-        modificationDateLabelValue.text = "2022.12.31"
         descriptionLabel.text = "Description:"
-        stateLabel.text = "State:"
+//        stateLabel.text = "State:"
         
         self.add(childVC: prioSegmentedVC, to: self.prioView)
         self.add(childVC: weightSegmentedVC, to: self.weightView)
         self.add(childVC: ownerPickerVC, to: self.ownerPickerView)
-        self.add(childVC: statePickerVC, to: self.statePickerView)
+//        self.add(childVC: statePickerVC, to: self.statePickerView)
         
 
         let padding: CGFloat = 24
@@ -206,19 +209,19 @@ class EditTaskVC: UIViewController, UIScrollViewDelegate {
             ownerPickerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             ownerPickerView.heightAnchor.constraint(equalToConstant: 200),
             
-            stateLabel.topAnchor.constraint(equalTo: ownerPickerView.bottomAnchor, constant: 110),
-            stateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            stateLabel.widthAnchor.constraint(equalToConstant: 110),
-            stateLabel.heightAnchor.constraint(equalToConstant: 20),
+//            stateLabel.topAnchor.constraint(equalTo: ownerPickerView.bottomAnchor, constant: 110),
+//            stateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+//            stateLabel.widthAnchor.constraint(equalToConstant: 110),
+//            stateLabel.heightAnchor.constraint(equalToConstant: 20),
 
-            statePickerView.topAnchor.constraint(equalTo: ownerPickerView.bottomAnchor, constant: 10),
-            statePickerView.leadingAnchor.constraint(equalTo: stateLabel.trailingAnchor, constant: valuePadding),
-            statePickerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            statePickerView.heightAnchor.constraint(equalToConstant: 200),
+//            statePickerView.topAnchor.constraint(equalTo: ownerPickerView.bottomAnchor, constant: 10),
+//            statePickerView.leadingAnchor.constraint(equalTo: stateLabel.trailingAnchor, constant: valuePadding),
+//            statePickerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+//            statePickerView.heightAnchor.constraint(equalToConstant: 200),
             
-            descriptionLabel.topAnchor.constraint(equalTo: statePickerView.bottomAnchor, constant: sectionPadding),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: ownerPickerView.bottomAnchor, constant: sectionPadding),
+            descriptionLabel.leadingAnchor.constraint(equalTo: ownerPickerView.leadingAnchor, constant: padding),
+            descriptionLabel.trailingAnchor.constraint(equalTo: ownerPickerView.trailingAnchor),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 20),
 
             descriptionTextView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 6),

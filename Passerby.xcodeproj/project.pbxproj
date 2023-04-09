@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D17B25E29E414300035C1E1 /* InitialTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D17B25D29E414300035C1E1 /* InitialTask.swift */; };
 		0D2204E229C61F84006761FF /* PBTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2204E129C61F84006761FF /* PBTextView.swift */; };
 		0D2204E429C625F0006761FF /* WeightSegmentedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2204E329C625F0006761FF /* WeightSegmentedVC.swift */; };
 		0D2204E729C62788006761FF /* PBBodyLabelValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2204E629C62788006761FF /* PBBodyLabelValue.swift */; };
+		0D3DC59529F596A800765EF9 /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DC59429F596A800765EF9 /* TaskState.swift */; };
 		0D44181329C731130054503F /* OwnerPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44181229C731130054503F /* OwnerPickerVC.swift */; };
 		0D450B4D297C686E00B85F49 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B4C297C686E00B85F49 /* User.swift */; };
 		0D450B4F297C6BF700B85F49 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */; };
 		0D450B51297C7A7200B85F49 /* PBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */; };
 		0D710383297C458A00141A67 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D710382297C458A00141A67 /* Coordinator.swift */; };
-		0DA8DDB729BE1FB7009A0297 /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDB629BE1FB7009A0297 /* EditTaskVC.swift */; };
-		0DA8DDB929BE258E009A0297 /* EditTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDB829BE258E009A0297 /* EditTaskViewModel.swift */; };
+		0DA8DDB729BE1FB7009A0297 /* NewTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDB629BE1FB7009A0297 /* NewTaskVC.swift */; };
+		0DA8DDB929BE258E009A0297 /* NewTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDB829BE258E009A0297 /* NewTaskViewModel.swift */; };
 		0DA8DDBB29BE41BE009A0297 /* PrioSegmentedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDBA29BE41BE009A0297 /* PrioSegmentedVC.swift */; };
 		0DB42C662990184900A47500 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB42C652990184900A47500 /* AccountVC.swift */; };
 		0DB42C682990186900A47500 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB42C672990186800A47500 /* AccountViewModel.swift */; };
@@ -52,21 +54,24 @@
 		0DBE60B929668B1E00D6F400 /* PBTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60B829668B1E00D6F400 /* PBTitleLabel.swift */; };
 		0DBE60BB29668B3B00D6F400 /* PBBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60BA29668B3B00D6F400 /* PBBodyLabel.swift */; };
 		0DBE60BD29668E0D00D6F400 /* PBSecondaryTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60BC29668E0D00D6F400 /* PBSecondaryTitleLabel.swift */; };
+		0DE75E8C29EAA09C0098515E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE75E8B29EAA09C0098515E /* Team.swift */; };
 		577CC47E6E748305CE06B3FE /* Pods_Passerby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93FBD58DB2F1D212A2E783C /* Pods_Passerby.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		092E6CC8C4490C123CB516BC /* Pods-Passerby.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passerby.debug.xcconfig"; path = "Target Support Files/Pods-Passerby/Pods-Passerby.debug.xcconfig"; sourceTree = "<group>"; };
+		0D17B25D29E414300035C1E1 /* InitialTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTask.swift; sourceTree = "<group>"; };
 		0D2204E129C61F84006761FF /* PBTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTextView.swift; sourceTree = "<group>"; };
 		0D2204E329C625F0006761FF /* WeightSegmentedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSegmentedVC.swift; sourceTree = "<group>"; };
 		0D2204E629C62788006761FF /* PBBodyLabelValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBodyLabelValue.swift; sourceTree = "<group>"; };
+		0D3DC59429F596A800765EF9 /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
 		0D44181229C731130054503F /* OwnerPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerPickerVC.swift; sourceTree = "<group>"; };
 		0D450B4C297C686E00B85F49 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTableViewCell.swift; sourceTree = "<group>"; };
 		0D710382297C458A00141A67 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		0DA8DDB629BE1FB7009A0297 /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
-		0DA8DDB829BE258E009A0297 /* EditTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewModel.swift; sourceTree = "<group>"; };
+		0DA8DDB629BE1FB7009A0297 /* NewTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskVC.swift; sourceTree = "<group>"; };
+		0DA8DDB829BE258E009A0297 /* NewTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewModel.swift; sourceTree = "<group>"; };
 		0DA8DDBA29BE41BE009A0297 /* PrioSegmentedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrioSegmentedVC.swift; sourceTree = "<group>"; };
 		0DB42C652990184900A47500 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		0DB42C672990186800A47500 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
@@ -104,6 +109,7 @@
 		0DBE60B829668B1E00D6F400 /* PBTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTitleLabel.swift; sourceTree = "<group>"; };
 		0DBE60BA29668B3B00D6F400 /* PBBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBodyLabel.swift; sourceTree = "<group>"; };
 		0DBE60BC29668E0D00D6F400 /* PBSecondaryTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBSecondaryTitleLabel.swift; sourceTree = "<group>"; };
+		0DE75E8B29EAA09C0098515E /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		491BD5662844D4B44DD74136 /* Pods-Passerby.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passerby.release.xcconfig"; path = "Target Support Files/Pods-Passerby/Pods-Passerby.release.xcconfig"; sourceTree = "<group>"; };
 		F93FBD58DB2F1D212A2E783C /* Pods_Passerby.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passerby.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -179,6 +185,9 @@
 			children = (
 				0DB9D0BB296AE6A900C1B353 /* TaskItem.swift */,
 				0D450B4C297C686E00B85F49 /* User.swift */,
+				0D17B25D29E414300035C1E1 /* InitialTask.swift */,
+				0DE75E8B29EAA09C0098515E /* Team.swift */,
+				0D3DC59429F596A800765EF9 /* TaskState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -232,8 +241,8 @@
 				0DBADC622969D2FA0033A150 /* TasksListVC.swift */,
 				0DB42C672990186800A47500 /* AccountViewModel.swift */,
 				0DB42C652990184900A47500 /* AccountVC.swift */,
-				0DA8DDB829BE258E009A0297 /* EditTaskViewModel.swift */,
-				0DA8DDB629BE1FB7009A0297 /* EditTaskVC.swift */,
+				0DA8DDB829BE258E009A0297 /* NewTaskViewModel.swift */,
+				0DA8DDB629BE1FB7009A0297 /* NewTaskVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -451,8 +460,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DBC30A829745A3C00C74F3C /* LoginViewModel.swift in Sources */,
+				0D17B25E29E414300035C1E1 /* InitialTask.swift in Sources */,
 				0DBADC562969CD5B0033A150 /* PBImageView.swift in Sources */,
 				0DBA1F0429AE8D710056E982 /* UIViewController+Ext.swift in Sources */,
+				0D3DC59529F596A800765EF9 /* TaskState.swift in Sources */,
 				0D450B4F297C6BF700B85F49 /* LoginCoordinator.swift in Sources */,
 				0DB625B929ABC86A0036381D /* PBTertiaryTitleLabel.swift in Sources */,
 				0DBB677129CA21B400769E72 /* Date+Ext.swift in Sources */,
@@ -467,6 +478,7 @@
 				0DB9D0C4296AE89600C1B353 /* TasksListViewModel.swift in Sources */,
 				0DB42C682990186900A47500 /* AccountViewModel.swift in Sources */,
 				0DBE60B229668A2300D6F400 /* PBEmptyStateView.swift in Sources */,
+				0DE75E8C29EAA09C0098515E /* Team.swift in Sources */,
 				0DBADC652969D3500033A150 /* PBDataLoadingVC.swift in Sources */,
 				0DA8DDBB29BE41BE009A0297 /* PrioSegmentedVC.swift in Sources */,
 				0DBADC632969D2FA0033A150 /* TasksListVC.swift in Sources */,
@@ -476,7 +488,7 @@
 				0D710383297C458A00141A67 /* Coordinator.swift in Sources */,
 				0DB6F87E296543B000484156 /* SceneDelegate.swift in Sources */,
 				0DBADC672969D3C40033A150 /* LoginVC.swift in Sources */,
-				0DA8DDB729BE1FB7009A0297 /* EditTaskVC.swift in Sources */,
+				0DA8DDB729BE1FB7009A0297 /* NewTaskVC.swift in Sources */,
 				0DB9D0BE296AE70500C1B353 /* ApiClient.swift in Sources */,
 				0DB9D0C0296AE73400C1B353 /* ApiError.swift in Sources */,
 				0DBADC5D2969D0F90033A150 /* UIView+Ext.swift in Sources */,
@@ -487,7 +499,7 @@
 				0DBB2E1C2985B4B800757341 /* TaskListCoordinator.swift in Sources */,
 				0DBADC612969D1F00033A150 /* Constants.swift in Sources */,
 				0DBADC692969D4530033A150 /* PBAlertContainerView.swift in Sources */,
-				0DA8DDB929BE258E009A0297 /* EditTaskViewModel.swift in Sources */,
+				0DA8DDB929BE258E009A0297 /* NewTaskViewModel.swift in Sources */,
 				0DB9D0C2296AE74500C1B353 /* ApiRouter.swift in Sources */,
 				0DBE60BB29668B3B00D6F400 /* PBBodyLabel.swift in Sources */,
 				0DBADC542969CD190033A150 /* PBTextField.swift in Sources */,

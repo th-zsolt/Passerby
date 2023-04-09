@@ -21,10 +21,24 @@ class ApiClient {
                             loginName: "teszt",
                             fullName: "Teszt Elek",
                             teamname: "A-Team",
+                            teamId: "1",
                             userTaskID: ["1", "2"],
                             permissions: ["Write", "Edit", "Admin"]))
     }
     
+    static func getTeam(teamID: String)-> Observable<Team> {
+        return Observable.of(Team(id: "1",
+                                  teamUser: [
+                                    TeamUser(userId: "10", userName: "Kis János"),
+                                    TeamUser(userId: "11", userName: "Tóth Tamás"),
+                                    TeamUser(userId: "12", userName: "Kincses Ernő"),
+                                    TeamUser(userId: "13", userName: "Szentgyörgyi Aladár"),
+                                    TeamUser(userId: "14", userName: "Kisfaludy Szilvia"),
+                                    TeamUser(userId: "15", userName: "Kecskés Kincső"),
+                                    TeamUser(userId: "16", userName: "Szalma József Benedek")
+                                    ]))
+    }
+                                        
     //-------------------------------------------------------------------------------------------------
     //MARK: - The request function to get results in an Observable
     private static func request<T: Codable> (_ urlConvertible: URLRequestConvertible) -> Observable<T> {
