@@ -16,6 +16,7 @@ class ApiClient {
         return request(ApiRouter.getTasks(userId: userId))
     }
     
+    
     static func getUser(loginName: String) -> Observable<User> {
         return Observable.of(User(userId: "1",
                             loginName: "teszt",
@@ -25,6 +26,7 @@ class ApiClient {
                             userTaskID: ["1", "2"],
                             permissions: ["Write", "Edit", "Admin"]))
     }
+    
     
     static func getTeam(teamID: String)-> Observable<Team> {
         return Observable.of(Team(id: "1",
@@ -38,6 +40,19 @@ class ApiClient {
                                     TeamUser(userId: "16", userName: "Szalma József Benedek")
                                     ]))
     }
+    
+    
+    static func createTask(newTask: NewTask)-> Observable<String> {
+        //For the ApiRouter:
+        let encoder = JSONEncoder()
+        
+        if let encoded = try? encoder.encode(newTask) {
+            print(String(data: encoded, encoding: .utf8)!)
+        }
+
+        return Observable.of("1234")
+    }
+    
                                         
     //-------------------------------------------------------------------------------------------------
     //MARK: - The request function to get results in an Observable

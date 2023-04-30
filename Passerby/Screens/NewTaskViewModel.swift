@@ -20,12 +20,16 @@ class NewTaskViewModel {
     let selectedOwnerSubject = PublishSubject<String>()
     let filledTitleSubject = PublishSubject<String>()
     let filledDescriptionSubject = PublishSubject<String>()
-        
+    let dialogClosed: AnyObserver<Void>
+    
     
     // MARK: - Output
     
     let initialTask: Observable<InitialTaskViewModel>
     let teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
+    let presentError = BehaviorRelay<String>(value: "")
+    let presentCompletionWithId = BehaviorRelay<String>(value: "")
+    let backToTasksList: Observable<Void>
     
     var taskNameValue: String
     var desciptionValue: String
@@ -35,7 +39,8 @@ class NewTaskViewModel {
     var modifiedDateValue: String
     var creatorValue: String
     var ownerValue: String
-
+    
+    private let errorTrigger = PublishSubject<String>()
     
     // MARK: - Init
     init(user: User) {
@@ -48,22 +53,26 @@ class NewTaskViewModel {
         self.modifiedDateValue = ""
         self.creatorValue = ""
         self.ownerValue = ""
+                    
         
-       
         initialTask = Observable.deferred{
             return Observable.just(InitialTaskViewModel(user: user))
         }
         
+        let _dialogClosed = PublishSubject<Void>()
+        self.dialogClosed = _dialogClosed.asObserver()
+        self.backToTasksList = _dialogClosed.asObservable()
+        
         self.getTeam(teamId: user.teamId)
-
+        
         _ = filledTitleSubject.subscribe(onNext: { title in
             self.taskNameValue = title
         })
-
+        
         _ = filledDescriptionSubject.subscribe(onNext: { desc in
             self.desciptionValue = desc
         })
-
+        
         _ = selectedOwnerSubject.subscribe(onNext: {owner in
             self.ownerValue = owner
         })
@@ -75,29 +84,38 @@ class NewTaskViewModel {
         _ = selectedWeightSubject.subscribe(onNext: {weight in
             self.weightValue = weight
         })
-
+        
         _ = initialTask.subscribe(onNext: { initialTask in
             self.creationDateValue = initialTask.creationDate
             self.modifiedDateValue = initialTask.modifiedDate
             self.creatorValue = initialTask.creator
-            })
+        })
         
     }
     
     
     func createTask() {
+
+        
         if ownerValue == "" {getDefaultOwner()}
-        let newTask = TaskItem(taskId: "0",
-                               taskName: taskNameValue,
-                               taskPrio: prioValue,
-                               taskWeight: weightValue,
-                               creationDate: creationDateValue,
-                               modifiedDate: modifiedDateValue,
-                               creator: creatorValue,
-                               assigned: ownerValue,
-                               description: desciptionValue)
+        let newTask = NewTask(taskName: taskNameValue,
+                              taskPrio: prioValue,
+                              taskWeight: weightValue,
+                              creationDate: creationDateValue,
+                              modifiedDate: modifiedDateValue,
+                              creator: creatorValue,
+                              assigned: ownerValue,
+                              description: desciptionValue)
         print(newTask)
+        
+        ApiClient.createTask(newTask: newTask).asObservable().subscribe(
+            onNext: { id in
+                self.presentCompletionWithId.accept(id)
+            }, onError: { error in
+                self.presentError.accept(error.localizedDescription)
+            }).disposed(by: bag)
     }
+    
         
     
     func getDefaultOwner() {
@@ -120,7 +138,7 @@ class NewTaskViewModel {
             onNext: { team in
                 self.mapTeamUser(team: team)
         }, onError: { error in
-            print(error)
+            self.presentError.accept(error.localizedDescription)
         }).disposed(by: bag)
     }
     

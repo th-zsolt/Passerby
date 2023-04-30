@@ -59,6 +59,12 @@ class TasksListVC: PBDataLoadingVC {
         addButton.rx.tap
             .bind(to: viewModel.addButtonClicked)
             .disposed(by: bag)
+        
+        tableView.rx.itemSelected
+            .map { Int($0.item) }
+            .bind(to: viewModel.taskItemSelected)
+            .disposed(by: bag)
+
     }
             
     

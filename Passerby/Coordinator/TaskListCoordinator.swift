@@ -14,13 +14,13 @@ class TaskListCoordinator: Coordinator {
     var bag: DisposeBag = DisposeBag()
     var rootViewController = UINavigationController()
     var user: User
-
-
+    
+    
     init(rootViewController: UINavigationController, user: User) {
         self.rootViewController = rootViewController
         self.user = user
     }
-
+    
     func start() {
         lazy var tasksListVC: TasksListVC = {
             let vc = TasksListVC()
@@ -40,8 +40,67 @@ class TaskListCoordinator: Coordinator {
             .subscribe(onNext: { [weak self] in self?.showAccount(user: currentUser) })
             .disposed(by: bag)
         
-        viewModel.showAddTask
+        viewModel.showNewTask
             .subscribe(onNext: { [weak self] in self?.showAddTask() })
+            .disposed(by: bag)
+        
+        viewModel.showEditTask
+            .subscribe(onNext: {[weak self] taskId in
+                if taskId != "" { self?.showEditTask(taskid: taskId) }
+            })
+            .disposed(by: bag)
+    }
+    
+    
+    private func showEditTask(taskid: String) {
+        lazy var editTaskVC: EditTaskVC = {
+            let vc = EditTaskVC()
+            return vc
+        }()
+        
+        lazy var prioSegmentedVC: PrioSegmentedVC = {
+            let vc = PrioSegmentedVC()
+            return vc
+        }()
+        lazy var weightSegmentedVC: WeightSegmentedVC = {
+            let vc = WeightSegmentedVC()
+            return vc
+        }()
+        lazy var ownerPickerVC: OwnerPickerVC = {
+            let vc = OwnerPickerVC()
+            return vc
+        }()
+        //        lazy var statePickerVC: StatePickerVC = {
+        //            let vc = StatePickerVC()
+        //            return vc
+        //        }()
+        lazy var dialogVC: PBDialogVC = {
+            let vc = PBDialogVC()
+            return vc
+        }()
+        
+        let editTaskViewModel = NewTaskViewModel(user: self.user)
+        editTaskVC.viewModel = editTaskViewModel
+        
+        editTaskVC.prioSegmentedVC = prioSegmentedVC
+        editTaskVC.weightSegmentedVC = weightSegmentedVC
+        editTaskVC.ownerPickerVC = ownerPickerVC
+        editTaskVC.dialogVC = dialogVC
+        //        editTaskVC.statePickerVC = statePickerVC
+        
+        prioSegmentedVC.viewModel = editTaskViewModel
+        weightSegmentedVC.viewModel = editTaskViewModel
+        ownerPickerVC.viewModel = editTaskViewModel
+        dialogVC.viewModel = editTaskViewModel
+        //        statePickerVC.viewModel = editTaskViewModel
+        
+        rootViewController.pushViewController(editTaskVC, animated: true)
+        
+        editTaskViewModel.backToTasksList
+            .subscribe(onNext: { _ in
+                editTaskVC.navigationController?.popViewController(animated: true)
+            } )
+            .disposed(by: bag)
     }
     
     
@@ -58,7 +117,7 @@ class TaskListCoordinator: Coordinator {
     
     
     private func showAddTask() {
-        lazy var editTaskVC: NewTaskVC = {
+        lazy var newTaskVC: NewTaskVC = {
             let vc = NewTaskVC()
             return vc
         }()
@@ -75,25 +134,34 @@ class TaskListCoordinator: Coordinator {
             let vc = OwnerPickerVC()
             return vc
         }()
-//        lazy var statePickerVC: StatePickerVC = {
-//            let vc = StatePickerVC()
-//            return vc
-//        }()
-                
-        let editTaskViewModel = NewTaskViewModel(user: self.user)
-        editTaskVC.viewModel = editTaskViewModel
+
+        lazy var dialogVC: PBDialogVC = {
+            let vc = PBDialogVC()
+            return vc
+        }()
         
-        editTaskVC.prioSegmentedVC = prioSegmentedVC
-        editTaskVC.weightSegmentedVC = weightSegmentedVC
-        editTaskVC.ownerPickerVC = ownerPickerVC
-//        editTaskVC.statePickerVC = statePickerVC
+        let editTaskViewModel = NewTaskViewModel(user: self.user)
+        newTaskVC.viewModel = editTaskViewModel
+        
+        newTaskVC.prioSegmentedVC = prioSegmentedVC
+        newTaskVC.weightSegmentedVC = weightSegmentedVC
+        newTaskVC.ownerPickerVC = ownerPickerVC
+        newTaskVC.dialogVC = dialogVC
         
         prioSegmentedVC.viewModel = editTaskViewModel
         weightSegmentedVC.viewModel = editTaskViewModel
         ownerPickerVC.viewModel = editTaskViewModel
-//        statePickerVC.viewModel = editTaskViewModel
+        dialogVC.viewModel = editTaskViewModel
+        //        statePickerVC.viewModel = editTaskViewModel
         
-        rootViewController.pushViewController(editTaskVC, animated: true)
+        rootViewController.pushViewController(newTaskVC, animated: true)
+        
+        editTaskViewModel.backToTasksList
+            .subscribe(onNext: { _ in
+                newTaskVC.navigationController?.popViewController(animated: true)
+            } )
+            .disposed(by: bag)
     }
+
 }
 

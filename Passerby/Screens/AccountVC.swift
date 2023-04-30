@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class AccountVC: UIViewController {
+class AccountVC: PBDataLoadingVC {
     private let bag = DisposeBag()
     var viewModel: AccountViewModel!
         

@@ -2,14 +2,14 @@
 //  EditTaskVC.swift
 //  Passerby
 //
-//  Created by Zsolt Toth on 2023. 03. 12..
+//  Created by Zsolt Toth on 2023. 05. 26..
 //
 
 import UIKit
 import RxSwift
 import RxCocoa
 
-class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
+class EditTaskVC: UIViewController {
 
     private let bag = DisposeBag()
     var viewModel: NewTaskViewModel!

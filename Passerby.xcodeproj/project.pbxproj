@@ -16,6 +16,7 @@
 		0D450B4D297C686E00B85F49 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B4C297C686E00B85F49 /* User.swift */; };
 		0D450B4F297C6BF700B85F49 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */; };
 		0D450B51297C7A7200B85F49 /* PBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */; };
+		0D68A6CF2A111F5B004909B5 /* PBDialogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D68A6CE2A111F5B004909B5 /* PBDialogVC.swift */; };
 		0D710383297C458A00141A67 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D710382297C458A00141A67 /* Coordinator.swift */; };
 		0DA8DDB729BE1FB7009A0297 /* NewTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDB629BE1FB7009A0297 /* NewTaskVC.swift */; };
 		0DA8DDB929BE258E009A0297 /* NewTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA8DDB829BE258E009A0297 /* NewTaskViewModel.swift */; };
@@ -54,7 +55,10 @@
 		0DBE60B929668B1E00D6F400 /* PBTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60B829668B1E00D6F400 /* PBTitleLabel.swift */; };
 		0DBE60BB29668B3B00D6F400 /* PBBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60BA29668B3B00D6F400 /* PBBodyLabel.swift */; };
 		0DBE60BD29668E0D00D6F400 /* PBSecondaryTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE60BC29668E0D00D6F400 /* PBSecondaryTitleLabel.swift */; };
+		0DC0D96B2A214C2F00BAD032 /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0D96A2A214C2F00BAD032 /* EditTaskVC.swift */; };
+		0DC0D96D2A214C4600BAD032 /* EditTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0D96C2A214C4600BAD032 /* EditTaskViewModel.swift */; };
 		0DE75E8C29EAA09C0098515E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE75E8B29EAA09C0098515E /* Team.swift */; };
+		0DF3E97A2A08143A00054F55 /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3E9792A08143A00054F55 /* NewTask.swift */; };
 		577CC47E6E748305CE06B3FE /* Pods_Passerby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93FBD58DB2F1D212A2E783C /* Pods_Passerby.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +73,7 @@
 		0D450B4C297C686E00B85F49 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0D450B4E297C6BF700B85F49 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		0D450B50297C7A7200B85F49 /* PBTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTableViewCell.swift; sourceTree = "<group>"; };
+		0D68A6CE2A111F5B004909B5 /* PBDialogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBDialogVC.swift; sourceTree = "<group>"; };
 		0D710382297C458A00141A67 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0DA8DDB629BE1FB7009A0297 /* NewTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskVC.swift; sourceTree = "<group>"; };
 		0DA8DDB829BE258E009A0297 /* NewTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewModel.swift; sourceTree = "<group>"; };
@@ -109,7 +114,10 @@
 		0DBE60B829668B1E00D6F400 /* PBTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTitleLabel.swift; sourceTree = "<group>"; };
 		0DBE60BA29668B3B00D6F400 /* PBBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBBodyLabel.swift; sourceTree = "<group>"; };
 		0DBE60BC29668E0D00D6F400 /* PBSecondaryTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBSecondaryTitleLabel.swift; sourceTree = "<group>"; };
+		0DC0D96A2A214C2F00BAD032 /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
+		0DC0D96C2A214C4600BAD032 /* EditTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewModel.swift; sourceTree = "<group>"; };
 		0DE75E8B29EAA09C0098515E /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		0DF3E9792A08143A00054F55 /* NewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTask.swift; sourceTree = "<group>"; };
 		491BD5662844D4B44DD74136 /* Pods-Passerby.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passerby.release.xcconfig"; path = "Target Support Files/Pods-Passerby/Pods-Passerby.release.xcconfig"; sourceTree = "<group>"; };
 		F93FBD58DB2F1D212A2E783C /* Pods_Passerby.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passerby.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -188,6 +196,7 @@
 				0D17B25D29E414300035C1E1 /* InitialTask.swift */,
 				0DE75E8B29EAA09C0098515E /* Team.swift */,
 				0D3DC59429F596A800765EF9 /* TaskState.swift */,
+				0DF3E9792A08143A00054F55 /* NewTask.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,6 +252,8 @@
 				0DB42C652990184900A47500 /* AccountVC.swift */,
 				0DA8DDB829BE258E009A0297 /* NewTaskViewModel.swift */,
 				0DA8DDB629BE1FB7009A0297 /* NewTaskVC.swift */,
+				0DC0D96C2A214C4600BAD032 /* EditTaskViewModel.swift */,
+				0DC0D96A2A214C2F00BAD032 /* EditTaskVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -271,6 +282,7 @@
 				0D2204E329C625F0006761FF /* WeightSegmentedVC.swift */,
 				0D44181229C731130054503F /* OwnerPickerVC.swift */,
 				0DBD21F929C78A8500980609 /* StatePickerVC.swift */,
+				0D68A6CE2A111F5B004909B5 /* PBDialogVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -463,6 +475,7 @@
 				0D17B25E29E414300035C1E1 /* InitialTask.swift in Sources */,
 				0DBADC562969CD5B0033A150 /* PBImageView.swift in Sources */,
 				0DBA1F0429AE8D710056E982 /* UIViewController+Ext.swift in Sources */,
+				0DF3E97A2A08143A00054F55 /* NewTask.swift in Sources */,
 				0D3DC59529F596A800765EF9 /* TaskState.swift in Sources */,
 				0D450B4F297C6BF700B85F49 /* LoginCoordinator.swift in Sources */,
 				0DB625B929ABC86A0036381D /* PBTertiaryTitleLabel.swift in Sources */,
@@ -480,6 +493,7 @@
 				0DBE60B229668A2300D6F400 /* PBEmptyStateView.swift in Sources */,
 				0DE75E8C29EAA09C0098515E /* Team.swift in Sources */,
 				0DBADC652969D3500033A150 /* PBDataLoadingVC.swift in Sources */,
+				0D68A6CF2A111F5B004909B5 /* PBDialogVC.swift in Sources */,
 				0DA8DDBB29BE41BE009A0297 /* PrioSegmentedVC.swift in Sources */,
 				0DBADC632969D2FA0033A150 /* TasksListVC.swift in Sources */,
 				0DBC50EB29754C1F0007A3CC /* UINavigationController+Rx.swift in Sources */,
@@ -488,6 +502,7 @@
 				0D710383297C458A00141A67 /* Coordinator.swift in Sources */,
 				0DB6F87E296543B000484156 /* SceneDelegate.swift in Sources */,
 				0DBADC672969D3C40033A150 /* LoginVC.swift in Sources */,
+				0DC0D96D2A214C4600BAD032 /* EditTaskViewModel.swift in Sources */,
 				0DA8DDB729BE1FB7009A0297 /* NewTaskVC.swift in Sources */,
 				0DB9D0BE296AE70500C1B353 /* ApiClient.swift in Sources */,
 				0DB9D0C0296AE73400C1B353 /* ApiError.swift in Sources */,
@@ -500,6 +515,7 @@
 				0DBADC612969D1F00033A150 /* Constants.swift in Sources */,
 				0DBADC692969D4530033A150 /* PBAlertContainerView.swift in Sources */,
 				0DA8DDB929BE258E009A0297 /* NewTaskViewModel.swift in Sources */,
+				0DC0D96B2A214C2F00BAD032 /* EditTaskVC.swift in Sources */,
 				0DB9D0C2296AE74500C1B353 /* ApiRouter.swift in Sources */,
 				0DBE60BB29668B3B00D6F400 /* PBBodyLabel.swift in Sources */,
 				0DBADC542969CD190033A150 /* PBTextField.swift in Sources */,
