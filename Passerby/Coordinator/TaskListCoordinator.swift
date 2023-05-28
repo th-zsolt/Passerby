@@ -70,29 +70,31 @@ class TaskListCoordinator: Coordinator {
             let vc = OwnerPickerVC()
             return vc
         }()
-        //        lazy var statePickerVC: StatePickerVC = {
-        //            let vc = StatePickerVC()
-        //            return vc
-        //        }()
+        
+        lazy var statePickerVC: StatePickerVC = {
+            let vc = StatePickerVC()
+            return vc
+        }()
+        
         lazy var dialogVC: PBDialogVC = {
             let vc = PBDialogVC()
             return vc
         }()
         
-        let editTaskViewModel = NewTaskViewModel(user: self.user)
+        let editTaskViewModel = EditTaskViewModel(user: self.user, taskId: taskid)
         editTaskVC.viewModel = editTaskViewModel
         
         editTaskVC.prioSegmentedVC = prioSegmentedVC
         editTaskVC.weightSegmentedVC = weightSegmentedVC
         editTaskVC.ownerPickerVC = ownerPickerVC
         editTaskVC.dialogVC = dialogVC
-        //        editTaskVC.statePickerVC = statePickerVC
+        editTaskVC.statePickerVC = statePickerVC
         
         prioSegmentedVC.viewModel = editTaskViewModel
         weightSegmentedVC.viewModel = editTaskViewModel
         ownerPickerVC.viewModel = editTaskViewModel
         dialogVC.viewModel = editTaskViewModel
-        //        statePickerVC.viewModel = editTaskViewModel
+        statePickerVC.viewModel = editTaskViewModel
         
         rootViewController.pushViewController(editTaskVC, animated: true)
         

@@ -11,7 +11,7 @@ import UIKit
 
 class StatePickerVC: UIViewController {
     
-    var viewModel: NewTaskViewModel!
+    var viewModel: EditTaskViewModel!
     private let bag = DisposeBag()
 
     let data = ["Deleted", "Closed", "Pending", "Open", "In Progress"]

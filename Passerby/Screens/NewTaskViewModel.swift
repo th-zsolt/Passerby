@@ -9,27 +9,32 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class NewTaskViewModel {
+class NewTaskViewModel: TaskViewModelType {
     
     private let bag = DisposeBag()
     
     // MARK: - Input
     
-    let selectedPrioSubject = PublishSubject<Int>()
-    let selectedWeightSubject = PublishSubject<Int>()
-    let selectedOwnerSubject = PublishSubject<String>()
     let filledTitleSubject = PublishSubject<String>()
     let filledDescriptionSubject = PublishSubject<String>()
-    let dialogClosed: AnyObserver<Void>
+    
+    var dialogClosed: AnyObserver<Void>
+    var selectedWeightSubject = PublishSubject<Int>()
+    var selectedPrioSubject = PublishSubject<Int>()
+    var selectedOwnerSubject = PublishSubject<String>()
     
     
     // MARK: - Output
     
     let initialTask: Observable<InitialTaskViewModel>
-    let teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
     let presentError = BehaviorRelay<String>(value: "")
     let presentCompletionWithId = BehaviorRelay<String>(value: "")
     let backToTasksList: Observable<Void>
+    
+    var teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
+    var defaultPrioValue = BehaviorRelay<Int?>(value: nil)
+    var defaultWeightValue = BehaviorRelay<Int?>(value: nil)
+    var defaultOwnerValue = BehaviorRelay<Int?>(value: nil)
     
     var taskNameValue: String
     var desciptionValue: String
@@ -150,16 +155,3 @@ class NewTaskViewModel {
         
 }
 
-struct InitialTaskViewModel {
-    let creationDate: String
-    let modifiedDate: String
-    let creator: String
-}
-
-extension InitialTaskViewModel {
-    init(user: User) {
-        self.creationDate = Date().convertToDayMonthYearFormat()
-        self.modifiedDate = Date().convertToDayMonthYearFormat()
-        self.creator = user.fullName
-    }
-}

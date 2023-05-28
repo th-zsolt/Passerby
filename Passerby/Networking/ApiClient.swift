@@ -35,7 +35,7 @@ class ApiClient {
                                     TeamUser(userId: "11", userName: "Tóth Tamás"),
                                     TeamUser(userId: "12", userName: "Kincses Ernő"),
                                     TeamUser(userId: "13", userName: "Szentgyörgyi Aladár"),
-                                    TeamUser(userId: "14", userName: "Kisfaludy Szilvia"),
+                                    TeamUser(userId: "14", userName: "Teszt Elek"),
                                     TeamUser(userId: "15", userName: "Kecskés Kincső"),
                                     TeamUser(userId: "16", userName: "Szalma József Benedek")
                                     ]))
@@ -51,6 +51,20 @@ class ApiClient {
         }
 
         return Observable.of("1234")
+    }
+    
+    
+    static func getTask(taskId: String) -> Observable<TaskItem> {
+        return Observable.of(TaskItem(taskId: "1",
+                                      taskName: "Test ticket",
+                                      taskPrio: 3,
+                                      taskWeight: 3,
+                                      creationDate: "2022-10-31",
+                                      modifiedDate: "2022-03-05",
+                                      creator: "Teszt Elek",
+                                      assigned: "Kecskés Kincső",
+                                      description: "Main task")
+        )
     }
     
                                         

@@ -9,93 +9,134 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class EditTaskViewModel {
+class EditTaskViewModel: TaskViewModelType {
 
-private let bag = DisposeBag()
+    private let bag = DisposeBag()
 
-// MARK: - Input
+    // MARK: - Input
+   
+    let filledTitleSubject = PublishSubject<String>()
+    let filledDescriptionSubject = PublishSubject<String>()
+        
+    var dialogClosed: AnyObserver<Void>
+    var selectedWeightSubject = PublishSubject<Int>()
+    var selectedPrioSubject = PublishSubject<Int>()
+    var selectedOwnerSubject = PublishSubject<String>()
 
-let selectedPrioSubject = PublishSubject<Int>()
-let selectedWeightSubject = PublishSubject<Int>()
-let selectedOwnerSubject = PublishSubject<String>()
-let filledTitleSubject = PublishSubject<String>()
-let filledDescriptionSubject = PublishSubject<String>()
-let dialogClosed: AnyObserver<Void>
+    
+    // MARK: - Output
 
+    let originalTask = BehaviorRelay<[TaskItem]>(value: [])
+    let presentError = BehaviorRelay<String>(value: "")
+    let presentCompletionWithId = BehaviorRelay<String>(value: "")
+    let backToTasksList: Observable<Void>
+    
+    var teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
+    var defaultPrioValue = BehaviorRelay<Int?>(value: nil)
+    var defaultWeightValue = BehaviorRelay<Int?>(value: nil)
+    var defaultOwnerValue = BehaviorRelay<Int?>(value: nil)
 
-// MARK: - Output
+    var taskNameValue: String
+    var desciptionValue: String
+    var prioValue: Int
+    var weightValue: Int
+    var creationDateValue: String
+    var modifiedDateValue: String
+    var creatorValue: String
+    var ownerValue: String
+    var taskId: String
 
-let initialTask: Observable<InitialTaskViewModel>
-let teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
-let presentError = BehaviorRelay<String>(value: "")
-let presentCompletionWithId = BehaviorRelay<String>(value: "")
-let backToTasksList: Observable<Void>
-
-var taskNameValue: String
-var desciptionValue: String
-var prioValue: Int
-var weightValue: Int
-var creationDateValue: String
-var modifiedDateValue: String
-var creatorValue: String
-var ownerValue: String
-
-private let errorTrigger = PublishSubject<String>()
+    private let errorTrigger = PublishSubject<String>()
 
 // MARK: - Init
-init(user: User) {
-    
-    self.taskNameValue = ""
-    self.desciptionValue = ""
-    self.prioValue = 0
-    self.weightValue = 0
-    self.creationDateValue = ""
-    self.modifiedDateValue = ""
-    self.creatorValue = ""
-    self.ownerValue = ""
-                
-    
-    initialTask = Observable.deferred{
-        return Observable.just(InitialTaskViewModel(user: user))
+    init(user: User, taskId: String) {
+        
+        self.taskNameValue = ""
+        self.desciptionValue = ""
+        self.prioValue = 0
+        self.weightValue = 0
+        self.creationDateValue = ""
+        self.modifiedDateValue = ""
+        self.creatorValue = ""
+        self.ownerValue = ""
+        self.taskId = ""
+            
+        let _dialogClosed = PublishSubject<Void>()
+        self.dialogClosed = _dialogClosed.asObserver()
+        self.backToTasksList = _dialogClosed.asObservable()
+        
+        self.getTeam(teamId: user.teamId)
+        
+        _ = filledTitleSubject.subscribe(onNext: { title in
+            self.taskNameValue = title
+        })
+        
+        _ = filledDescriptionSubject.subscribe(onNext: { desc in
+            self.desciptionValue = desc
+        })
+        
+        _ = selectedOwnerSubject.subscribe(onNext: {owner in
+            self.ownerValue = owner
+        })
+        
+        _ = selectedPrioSubject.subscribe(onNext: {prio in
+            self.prioValue = prio
+        })
+        
+        _ = selectedWeightSubject.subscribe(onNext: {weight in
+            self.weightValue = weight
+        })
+            
+        self.getTask(taskId: taskId)
+        
+        self.originalTask.subscribe(onNext: { taskItemList in
+            self.taskNameValue = taskItemList.first?.taskName ?? ""
+            self.desciptionValue = taskItemList.first?.description ?? ""
+            self.prioValue = taskItemList.first?.taskPrio ?? 0
+            self.weightValue = taskItemList.first?.taskWeight ?? 0
+            self.creationDateValue = taskItemList.first?.creationDate ?? ""
+            self.modifiedDateValue = taskItemList.first?.modifiedDate ?? ""
+            self.creatorValue = taskItemList.first?.creator ?? ""
+            self.ownerValue = taskItemList.first?.assigned ?? ""
+            self.taskId = taskItemList.first?.assigned ?? ""
+            self.setDefaultPrioValue()
+            self.setDefaultWeightValue()
+            self.setDefaultOwnerValue()
+        }).disposed(by: bag)
+        
     }
     
-    let _dialogClosed = PublishSubject<Void>()
-    self.dialogClosed = _dialogClosed.asObserver()
-    self.backToTasksList = _dialogClosed.asObservable()
+    func setDefaultPrioValue() {
+        let _prioValue = self.prioValue - 1
+        let _defaultPrioValue: Int = _prioValue
+        self.defaultPrioValue.accept(_defaultPrioValue)
+    }
     
-    self.getTeam(teamId: user.teamId)
     
-    _ = filledTitleSubject.subscribe(onNext: { title in
-        self.taskNameValue = title
-    })
+    func setDefaultWeightValue() {
+        let _weightValue = self.weightValue - 1
+        let _defaultWeightValue: Int = _weightValue
+        self.defaultWeightValue.accept(_defaultWeightValue)
+    }
     
-    _ = filledDescriptionSubject.subscribe(onNext: { desc in
-        self.desciptionValue = desc
-    })
-    
-    _ = selectedOwnerSubject.subscribe(onNext: {owner in
-        self.ownerValue = owner
-    })
-    
-    _ = selectedPrioSubject.subscribe(onNext: {prio in
-        self.prioValue = prio
-    })
-    
-    _ = selectedWeightSubject.subscribe(onNext: {weight in
-        self.weightValue = weight
-    })
-    
-    _ = initialTask.subscribe(onNext: { initialTask in
-        self.creationDateValue = initialTask.creationDate
-        self.modifiedDateValue = initialTask.modifiedDate
-        self.creatorValue = initialTask.creator
-    })
+    func setDefaultOwnerValue() {
+        guard let teamusers = self.teamUser.value else { return }
+        let _defaultOwnerValue = teamusers.firstIndex(where: {$0.userName == self.ownerValue})
+        self.defaultOwnerValue.accept(_defaultOwnerValue)
     }
 
+    
+    func getTask(taskId: String) {
+        ApiClient.getTask(taskId: taskId).asObservable().subscribe(
+            onNext: { result in
+                self.originalTask.accept([result])
+        }, onError: { error in
+            print(error)
+        }).disposed(by: bag)
+    }
+    
 
     func createTask() {
-
-        
         if ownerValue == "" {getDefaultOwner()}
         let newTask = NewTask(taskName: taskNameValue,
                               taskPrio: prioValue,

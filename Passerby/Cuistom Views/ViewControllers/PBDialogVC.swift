@@ -11,7 +11,7 @@ import UIKit
 
 class PBDialogVC: UIViewController {
 
-    var viewModel: NewTaskViewModel!
+    var viewModel: TaskViewModelType!
     private let bag = DisposeBag()
 
     let containerView = PBAlertContainerView()

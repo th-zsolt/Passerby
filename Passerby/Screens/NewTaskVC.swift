@@ -18,32 +18,26 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
     var weightSegmentedVC: WeightSegmentedVC!
     var ownerPickerVC: OwnerPickerVC!
     var dialogVC: PBDialogVC!
-//    var statePickerVC: StatePickerVC!
     
     let scrollView = UIScrollView()
     let contentView = UIView()
-//    let statePickerView = UIView()
     let ownerPickerView = UIView()
     let prioView = UIView()
     let weightView = UIView()
 
     let nameTextField = PBTextField(placeholder: "Enter the title")
-    let taskIdLabel = PBBodyLabel(textAlignment: .left)
-    let taskIdLabelValue = PBBodyLabelValue(textAlignment: .left)
     let prioLabel = PBBodyLabel(textAlignment: .left)
     let weightLabel = PBBodyLabel(textAlignment: .left)
     let reporterLabel = PBBodyLabel(textAlignment: .left)
     let reporterLabelValue = PBBodyLabelValue(textAlignment: .left)
     let ownerLabel = PBBodyLabel(textAlignment: .left)
-//    let stateLabel = PBBodyLabel(textAlignment: .left)
     let creationDateLabel = PBBodyLabel(textAlignment: .left)
     let creationDateLabelValue = PBBodyLabelValue(textAlignment: .left)
     let modificationDateLabel = PBBodyLabel(textAlignment: .left)
     let modificationDateLabelValue = PBBodyLabelValue(textAlignment: .left)
     let descriptionLabel = PBBodyLabel(textAlignment: .left)
     let descriptionTextView = PBTextView(frame: CGRect(x: 20.0, y: 90.0, width: 250.0, height: 200.0))
-    
-//    let commentButton = PBButton(color: .systemBlue, title: "Comments")
+
        
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +99,7 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
 //             1200
         ])
 
-        contentView.addSubViews(nameTextField, taskIdLabel, taskIdLabelValue, prioLabel, prioView, weightLabel, weightView, reporterLabel, reporterLabelValue, ownerLabel, ownerPickerView, creationDateLabel, creationDateLabelValue,    modificationDateLabel, modificationDateLabelValue, descriptionLabel, descriptionTextView)
+        contentView.addSubViews(nameTextField, prioLabel, prioView, weightLabel, weightView, reporterLabel, reporterLabelValue, ownerLabel, ownerPickerView, creationDateLabel, creationDateLabelValue,    modificationDateLabel, modificationDateLabelValue, descriptionLabel, descriptionTextView)
         
     }
     
@@ -129,8 +123,6 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
 //        stateLabel.translatesAutoresizingMaskIntoConstraints = false
 //        statePickerView.translatesAutoresizingMaskIntoConstraints = false
         
-        taskIdLabel.text = "ID:"
-        taskIdLabelValue.text = "1234"
         prioLabel.text = "Priority:"
         weightLabel.text = "Weight:"
         reporterLabel.text = "Reporter:"
@@ -155,19 +147,8 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
             nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
             nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
             nameTextField.heightAnchor.constraint(equalToConstant: 50),
-                        
-            taskIdLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: sectionPadding),
-            taskIdLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            taskIdLabel.widthAnchor.constraint(equalToConstant: 30),
-            taskIdLabel.heightAnchor.constraint(equalToConstant: 20),
 
-            taskIdLabelValue.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: sectionPadding),
-            taskIdLabelValue.leadingAnchor.constraint(equalTo: taskIdLabel.trailingAnchor, constant: valuePadding),
-            taskIdLabelValue.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            taskIdLabelValue.heightAnchor.constraint(equalToConstant: 20),
-            
-
-            prioLabel.topAnchor.constraint(equalTo: taskIdLabelValue.bottomAnchor, constant: sectionPadding),
+            prioLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: sectionPadding),
             prioLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             prioLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             prioLabel.heightAnchor.constraint(equalToConstant: 20),

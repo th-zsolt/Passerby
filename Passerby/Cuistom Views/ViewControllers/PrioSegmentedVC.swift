@@ -10,13 +10,14 @@ import UIKit
 
 class PrioSegmentedVC: UIViewController {
 
-    var viewModel: NewTaskViewModel!
+    var viewModel: TaskViewModelType!
     private let bag = DisposeBag()
         
     override func viewDidLoad() {
         super.viewDidLoad()
         createPrioSegmentedControl()
     }
+    
     
     func createPrioSegmentedControl() {
         let items = ["Low", "Medium", "High"]
@@ -34,6 +35,13 @@ class PrioSegmentedVC: UIViewController {
         prioSegmentedControl.rx.selectedSegmentIndex.changed
             .subscribe(viewModel.selectedPrioSubject)
             .disposed(by: bag)
+        
+        viewModel.defaultPrioValue
+            .filter { $0 != nil }
+            .map { $0! }
+            .subscribe(onNext: { row in
+                prioSegmentedControl.selectedSegmentIndex = row
+            }).disposed(by: bag)
     }
     
 }

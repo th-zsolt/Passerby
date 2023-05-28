@@ -11,7 +11,7 @@ import UIKit
 
 class WeightSegmentedVC: UIViewController {
     
-    var viewModel: NewTaskViewModel!
+    var viewModel: TaskViewModelType!
     private let bag = DisposeBag()
 
     override func viewDidLoad() {
@@ -34,5 +34,12 @@ class WeightSegmentedVC: UIViewController {
         weightSegmentedControl.rx.selectedSegmentIndex.changed
             .subscribe(viewModel.selectedWeightSubject)
             .disposed(by: bag)
+        
+        viewModel.defaultWeightValue
+            .filter { $0 != nil }
+            .map { $0! }
+            .subscribe(onNext: { row in
+                weightSegmentedControl.selectedSegmentIndex = row
+            }).disposed(by: bag)
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 
 class OwnerPickerVC: UIViewController {
     
-    var viewModel: NewTaskViewModel!
+    var viewModel: TaskViewModelType!
     private let bag = DisposeBag()
     
     var teamUser: [TeamUser]?
@@ -66,6 +66,13 @@ class OwnerPickerVC: UIViewController {
             })
             .subscribe(viewModel.selectedOwnerSubject)
             .disposed(by: bag)
+        
+        viewModel.defaultOwnerValue
+            .filter { $0 != nil }
+            .map { $0! }
+            .subscribe(onNext: { row in
+                self.picker.selectRow(row, inComponent: 0, animated: true)
+            }).disposed(by: bag)
     }
     
     
