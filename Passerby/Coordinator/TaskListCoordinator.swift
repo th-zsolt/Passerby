@@ -15,10 +15,13 @@ class TaskListCoordinator: Coordinator {
     var rootViewController = UINavigationController()
     var user: User
     
+    let filterTaskViewModel : FilterTaskViewModel
+    
     
     init(rootViewController: UINavigationController, user: User) {
         self.rootViewController = rootViewController
         self.user = user
+        filterTaskViewModel = FilterTaskViewModel(user: self.user)
     }
     
     func start() {
@@ -36,8 +39,24 @@ class TaskListCoordinator: Coordinator {
         tasksListVC.viewModel = viewModel
         rootViewController.pushViewController(tasksListVC, animated: true)
         
+        filterTaskViewModel.doFilter
+            .filter{ $0 != nil }
+            .bind(to: viewModel.doFilterTaskList)
+            .disposed(by: bag)
+        
+//        filterTaskViewModel.doFilter
+//            .filter{ $0 != nil }
+//            .subscribe(onNext: { filter in
+//                self.filterItem = filter ?? self.filterItem
+//            })
+//            .disposed(by: bag)
+        
         viewModel.showAccount
             .subscribe(onNext: { [weak self] in self?.showAccount(user: currentUser) })
+            .disposed(by: bag)
+        
+        viewModel.showFilter
+            .subscribe(onNext: { [weak self] in self?.showFilter(user: currentUser) })
             .disposed(by: bag)
         
         viewModel.showNewTask
@@ -59,15 +78,15 @@ class TaskListCoordinator: Coordinator {
         }()
         
         lazy var prioSegmentedVC: PrioSegmentedVC = {
-            let vc = PrioSegmentedVC()
+            let vc = PrioSegmentedVC(withEmpty: false)
             return vc
         }()
         lazy var weightSegmentedVC: WeightSegmentedVC = {
-            let vc = WeightSegmentedVC()
+            let vc = WeightSegmentedVC(withEmpty: false)
             return vc
         }()
-        lazy var ownerPickerVC: OwnerPickerVC = {
-            let vc = OwnerPickerVC()
+        lazy var ownerPickerVC: TeamMemberPickerVC = {
+            let vc = TeamMemberPickerVC()
             return vc
         }()
         
@@ -105,6 +124,52 @@ class TaskListCoordinator: Coordinator {
             .disposed(by: bag)
     }
     
+    private func showFilter(user: Driver<User>) {
+        lazy var filterTaskVC: FilterTaskVC = {
+            let vc = FilterTaskVC()
+            return vc
+        }()
+        
+        lazy var prioSegmentedVC: PrioSegmentedVC = {
+            let vc = PrioSegmentedVC(withEmpty: true)
+            return vc
+        }()
+        lazy var weightSegmentedVC: WeightSegmentedVC = {
+            let vc = WeightSegmentedVC(withEmpty: true)
+            return vc
+        }()
+        lazy var reporterPickerVC: TeamMemberPickerVC = {
+            let vc = TeamMemberPickerVC()
+            return vc
+        }()
+        
+        lazy var statePickerVC: StatePickerVC = {
+            let vc = StatePickerVC()
+            return vc
+        }()
+        
+        filterTaskVC.viewModel = self.filterTaskViewModel
+        rootViewController.pushViewController(filterTaskVC, animated: true)
+        self.filterTaskViewModel.screenVisible.accept(true)
+        
+        filterTaskVC.prioSegmentedVC = prioSegmentedVC
+        filterTaskVC.weightSegmentedVC = weightSegmentedVC
+        filterTaskVC.reporterPickerVC = reporterPickerVC
+        filterTaskVC.statePickerVC = statePickerVC
+        
+        prioSegmentedVC.viewModel = filterTaskViewModel
+        weightSegmentedVC.viewModel = filterTaskViewModel
+        reporterPickerVC.viewModel = filterTaskViewModel
+        statePickerVC.viewModel = filterTaskViewModel
+                
+        filterTaskViewModel.screenVisible
+            .filter { $0 == false }
+            .subscribe(onNext: { _ in
+                filterTaskVC.navigationController?.popViewController(animated: true)
+            } )
+            .disposed(by: bag)
+        
+    }
     
     private func showAccount(user: Driver<User>) {
         lazy var accountVC: AccountVC = {
@@ -125,15 +190,17 @@ class TaskListCoordinator: Coordinator {
         }()
         
         lazy var prioSegmentedVC: PrioSegmentedVC = {
-            let vc = PrioSegmentedVC()
+            let vc = PrioSegmentedVC(withEmpty: false)
             return vc
         }()
+        
         lazy var weightSegmentedVC: WeightSegmentedVC = {
-            let vc = WeightSegmentedVC()
+            let vc = WeightSegmentedVC(withEmpty: false)
             return vc
         }()
-        lazy var ownerPickerVC: OwnerPickerVC = {
-            let vc = OwnerPickerVC()
+        
+        lazy var ownerPickerVC: TeamMemberPickerVC = {
+            let vc = TeamMemberPickerVC()
             return vc
         }()
 
@@ -154,7 +221,6 @@ class TaskListCoordinator: Coordinator {
         weightSegmentedVC.viewModel = editTaskViewModel
         ownerPickerVC.viewModel = editTaskViewModel
         dialogVC.viewModel = editTaskViewModel
-        //        statePickerVC.viewModel = editTaskViewModel
         
         rootViewController.pushViewController(newTaskVC, animated: true)
         

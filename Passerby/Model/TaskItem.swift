@@ -17,8 +17,11 @@ struct TaskItem: Codable {
     let creationDate: String
     let modifiedDate: String
     let creator: String
+    let creatorId: String
     let assigned: String
+    let assignedId: String
     let description: String
+    let state: Int
     
 
 //    init() {

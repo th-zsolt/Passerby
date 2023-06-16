@@ -14,8 +14,8 @@ struct NewTask: Codable {
     let taskWeight: Int
     let creationDate: String
     let modifiedDate: String
-    let creator: String
-    let assigned: String
+    let creatorId: String
+    let assignedId: String
     let description: String
     
 }

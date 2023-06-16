@@ -17,6 +17,6 @@ extension InitialTaskViewModel {
     init(user: User) {
         self.creationDate = Date().convertToDayMonthYearFormat()
         self.modifiedDate = Date().convertToDayMonthYearFormat()
-        self.creator = user.fullName
+        self.creator = user.userId
     }
 }

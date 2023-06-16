@@ -16,7 +16,7 @@ class EditTaskVC: UIViewController {
     
     var prioSegmentedVC: PrioSegmentedVC!
     var weightSegmentedVC: WeightSegmentedVC!
-    var ownerPickerVC: OwnerPickerVC!
+    var ownerPickerVC: TeamMemberPickerVC!
     var dialogVC: PBDialogVC!
     var statePickerVC: StatePickerVC!
     
@@ -62,14 +62,12 @@ class EditTaskVC: UIViewController {
         let saveButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editTask))
         navigationItem.rightBarButtonItem = saveButton
         
-        saveButton.isEnabled = false
-        
         nameTextField.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledTitleSubject).disposed(by: bag)
         descriptionTextView.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledDescriptionSubject).disposed(by: bag)
         
         viewModel.isValid().bind(to: saveButton.rx.isEnabled).disposed(by: bag)
         
-        saveButton.rx.tap.subscribe(onNext: { self.viewModel.createTask() }).disposed(by: bag)
+        saveButton.rx.tap.subscribe(onNext: { self.viewModel.modifyTask() }).disposed(by: bag)
         
         viewModel.presentError.subscribe(onNext: { error in
             if error != "" { self.presentPBAlert(title: error, message: "Please try again", buttonTitle: "Ok")}

@@ -11,11 +11,11 @@ import UIKit
 
 class StatePickerVC: UIViewController {
     
-    var viewModel: EditTaskViewModel!
+    var viewModel: StateType!
     private let bag = DisposeBag()
-
-    let data = ["Deleted", "Closed", "Pending", "Open", "In Progress"]
-    
+   
+    var stateNames = [] as NSMutableArray
+//    let states = TaskState().state.map { "\($0.value)" }
     let picker = UIPickerView()
     
     
@@ -47,13 +47,35 @@ class StatePickerVC: UIViewController {
             picker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             picker.topAnchor.constraint(equalTo: view.topAnchor)
         ])
+        
+        viewModel.stateNames
+            .subscribe(onNext: { stateNames in
+                let mutableStateNames = NSMutableArray(array: stateNames)
+                self.stateNames = mutableStateNames
+            })
+            .disposed(by: bag)
+        
+        viewModel.defaultStateValue
+            .filter { $0 != nil }
+            .map { $0! }
+            .subscribe(onNext: { row in
+                self.picker.selectRow(row, inComponent: 0, animated: true)
+            }).disposed(by: bag)
+        
+        picker.rx.itemSelected.asObservable()
+            .map({ (row: Int, component: Int) in
+                return String(row)
+            })
+            .subscribe(viewModel.selectedStateSubject)
+            .disposed(by: bag)
     }
+    
         
 }
 
 extension StatePickerVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return data.count
+        return stateNames.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -61,7 +83,7 @@ extension StatePickerVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            return data[row]
+            return stateNames[row] as? String
     }
     
     

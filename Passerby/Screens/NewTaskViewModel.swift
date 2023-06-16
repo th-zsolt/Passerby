@@ -9,7 +9,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class NewTaskViewModel: TaskViewModelType {
+class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
     
     private let bag = DisposeBag()
     
@@ -21,7 +21,7 @@ class NewTaskViewModel: TaskViewModelType {
     var dialogClosed: AnyObserver<Void>
     var selectedWeightSubject = PublishSubject<Int>()
     var selectedPrioSubject = PublishSubject<Int>()
-    var selectedOwnerSubject = PublishSubject<String>()
+    var selectedTeamMemberSubject = PublishSubject<String>()
     
     
     // MARK: - Output
@@ -34,7 +34,7 @@ class NewTaskViewModel: TaskViewModelType {
     var teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
     var defaultPrioValue = BehaviorRelay<Int?>(value: nil)
     var defaultWeightValue = BehaviorRelay<Int?>(value: nil)
-    var defaultOwnerValue = BehaviorRelay<Int?>(value: nil)
+    var defaultTeamMemberValue = BehaviorRelay<Int?>(value: nil)
     
     var taskNameValue: String
     var desciptionValue: String
@@ -78,7 +78,7 @@ class NewTaskViewModel: TaskViewModelType {
             self.desciptionValue = desc
         })
         
-        _ = selectedOwnerSubject.subscribe(onNext: {owner in
+        _ = selectedTeamMemberSubject.subscribe(onNext: {owner in
             self.ownerValue = owner
         })
         
@@ -108,8 +108,8 @@ class NewTaskViewModel: TaskViewModelType {
                               taskWeight: weightValue,
                               creationDate: creationDateValue,
                               modifiedDate: modifiedDateValue,
-                              creator: creatorValue,
-                              assigned: ownerValue,
+                              creatorId: creatorValue,
+                              assignedId: ownerValue,
                               description: desciptionValue)
         print(newTask)
         

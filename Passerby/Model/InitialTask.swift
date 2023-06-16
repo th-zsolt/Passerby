@@ -10,5 +10,5 @@ import Foundation
 struct InitialTask: Decodable {
     let creationDate: String
     let modifiedDate: String
-    let creator: String
+    let creatorId: String
 }

@@ -35,10 +35,6 @@ class LoginCoordinator: Coordinator {
                     self.parentCoordinator?.loadTasksList(user: user!) }
             })
             .disposed(by: bag)
-        
-//        loginVC.buttonClicked
-//            .subscribe(onNext: { _ in self.parentCoordinator?.loadTasksList() })
-//            .disposed(by: bag)
     }
 }
 

@@ -34,17 +34,4 @@ class MainCoordinator: Coordinator {
     }
 }
     
-    
-    //loginVC.buttonClicked
-    //    .subscribe(onNext: { _ in self.showTasksList(in: self.rootViewController)})
-    //    .disposed(by: bag)
-    //}
-    
-    
-    //    private func showTasksList(in navigationController: UINavigationController) {
-    //
-    //        let viewModel = TasksListViewModel()
-    //        let tasksListVC  = TasksListVC()
-    //        navigationController.pushViewController(tasksListVC, animated: true)
-    //    }
 
