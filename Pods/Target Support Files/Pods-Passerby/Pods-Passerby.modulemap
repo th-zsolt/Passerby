@@ -1,0 +1,6 @@
+framework module Pods_Passerby {
+  umbrella header "Pods-Passerby-umbrella.h"
+
+  export *
+  module * { export * }
+}

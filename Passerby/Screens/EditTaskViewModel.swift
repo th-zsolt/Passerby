@@ -9,7 +9,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class EditTaskViewModel: TaskViewModelType {
+class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType, StateType {
 
     private let bag = DisposeBag()
 
@@ -22,6 +22,7 @@ class EditTaskViewModel: TaskViewModelType {
     var selectedWeightSubject = PublishSubject<Int>()
     var selectedPrioSubject = PublishSubject<Int>()
     var selectedOwnerSubject = PublishSubject<String>()
+    var selectedStateSubject = PublishSubject<String>()
 
     
     // MARK: - Output
@@ -30,11 +31,14 @@ class EditTaskViewModel: TaskViewModelType {
     let presentError = BehaviorRelay<String>(value: "")
     let presentCompletionWithId = BehaviorRelay<String>(value: "")
     let backToTasksList: Observable<Void>
+
+    var stateNames = BehaviorRelay<[String]>(value: [])
     
     var teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
     var defaultPrioValue = BehaviorRelay<Int?>(value: nil)
     var defaultWeightValue = BehaviorRelay<Int?>(value: nil)
     var defaultOwnerValue = BehaviorRelay<Int?>(value: nil)
+    var defaultStateValue = BehaviorRelay<Int?>(value: nil)
 
     var taskNameValue: String
     var desciptionValue: String
@@ -44,6 +48,7 @@ class EditTaskViewModel: TaskViewModelType {
     var modifiedDateValue: String
     var creatorValue: String
     var ownerValue: String
+    var stateValue: Int
     var taskId: String
 
     private let errorTrigger = PublishSubject<String>()
@@ -59,11 +64,14 @@ class EditTaskViewModel: TaskViewModelType {
         self.modifiedDateValue = ""
         self.creatorValue = ""
         self.ownerValue = ""
+        self.stateValue = 0
         self.taskId = ""
             
         let _dialogClosed = PublishSubject<Void>()
         self.dialogClosed = _dialogClosed.asObserver()
         self.backToTasksList = _dialogClosed.asObservable()
+        
+        self.getStates()
         
         self.getTeam(teamId: user.teamId)
         
@@ -86,6 +94,10 @@ class EditTaskViewModel: TaskViewModelType {
         _ = selectedWeightSubject.subscribe(onNext: {weight in
             self.weightValue = weight
         })
+        
+        _ = selectedStateSubject.subscribe(onNext: {state in
+            self.stateValue = Int(state) ?? 0
+        })
             
         self.getTask(taskId: taskId)
         
@@ -98,10 +110,12 @@ class EditTaskViewModel: TaskViewModelType {
             self.modifiedDateValue = taskItemList.first?.modifiedDate ?? ""
             self.creatorValue = taskItemList.first?.creator ?? ""
             self.ownerValue = taskItemList.first?.assigned ?? ""
-            self.taskId = taskItemList.first?.assigned ?? ""
+            self.stateValue = taskItemList.first?.state ?? 0
+            self.taskId = taskItemList.first?.taskId ?? ""
             self.setDefaultPrioValue()
             self.setDefaultWeightValue()
             self.setDefaultOwnerValue()
+            self.setDefaultStateValue()
         }).disposed(by: bag)
         
     }
@@ -119,10 +133,18 @@ class EditTaskViewModel: TaskViewModelType {
         self.defaultWeightValue.accept(_defaultWeightValue)
     }
     
+    
     func setDefaultOwnerValue() {
         guard let teamusers = self.teamUser.value else { return }
         let _defaultOwnerValue = teamusers.firstIndex(where: {$0.userName == self.ownerValue})
         self.defaultOwnerValue.accept(_defaultOwnerValue)
+    }
+    
+    
+    func setDefaultStateValue() {
+        let _stateValue = self.stateValue
+        let _defaultStateValue: Int = _stateValue
+        self.defaultStateValue.accept(_defaultStateValue)
     }
 
     
@@ -135,20 +157,28 @@ class EditTaskViewModel: TaskViewModelType {
         }).disposed(by: bag)
     }
     
+    
+    func getStates() {
+        let states = TaskState().state.map { "\($0.value)" }
+        self.stateNames.accept(states)
+    }
 
-    func createTask() {
+    
+    func modifyTask() {
         if ownerValue == "" {getDefaultOwner()}
-        let newTask = NewTask(taskName: taskNameValue,
-                              taskPrio: prioValue,
-                              taskWeight: weightValue,
-                              creationDate: creationDateValue,
-                              modifiedDate: modifiedDateValue,
-                              creator: creatorValue,
-                              assigned: ownerValue,
-                              description: desciptionValue)
-        print(newTask)
+        let modifiedTask = TaskItem(taskId: taskId,
+                                    taskName: taskNameValue,
+                                    taskPrio: prioValue,
+                                    taskWeight: weightValue,
+                                    creationDate: creationDateValue,
+                                    modifiedDate: modifiedDateValue,
+                                    creator: creatorValue,
+                                    assigned: ownerValue,
+                                    description: desciptionValue,
+                                    state: stateValue)
+        print(modifiedTask)
         
-        ApiClient.createTask(newTask: newTask).asObservable().subscribe(
+        ApiClient.modifyTask(taskItem: modifiedTask).asObservable().subscribe(
             onNext: { id in
                 self.presentCompletionWithId.accept(id)
             }, onError: { error in
@@ -166,11 +196,11 @@ class EditTaskViewModel: TaskViewModelType {
 
 
     func isValid() -> Observable<Bool> {
-        return Observable.combineLatest(selectedPrioSubject.asObservable(), selectedWeightSubject.asObservable(),  filledTitleSubject.asObservable(), filledDescriptionSubject.asObservable()).map { prio, weight, title, desc in
-            return prio >= 0 && weight >= 0 && title.count > 3 && desc.count > 3
+        return Observable.combineLatest(filledTitleSubject.asObservable(), filledDescriptionSubject.asObservable()).map { title, desc in
+            return title.count > 3 && desc.count > 3
         }
     }
-
+    
 
     func getTeam(teamId: String) {
         ApiClient.getTeam(teamID: teamId).asObservable().subscribe(

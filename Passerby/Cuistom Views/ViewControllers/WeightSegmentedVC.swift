@@ -11,7 +11,7 @@ import UIKit
 
 class WeightSegmentedVC: UIViewController {
     
-    var viewModel: TaskViewModelType!
+    var viewModel: WeightType!
     private let bag = DisposeBag()
 
     override func viewDidLoad() {

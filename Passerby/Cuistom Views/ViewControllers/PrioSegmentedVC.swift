@@ -10,7 +10,7 @@ import UIKit
 
 class PrioSegmentedVC: UIViewController {
 
-    var viewModel: TaskViewModelType!
+    var viewModel: PrioType!
     private let bag = DisposeBag()
         
     override func viewDidLoad() {

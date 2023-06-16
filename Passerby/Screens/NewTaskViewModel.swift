@@ -9,7 +9,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class NewTaskViewModel: TaskViewModelType {
+class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
     
     private let bag = DisposeBag()
     

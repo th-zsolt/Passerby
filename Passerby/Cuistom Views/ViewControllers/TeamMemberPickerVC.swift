@@ -1,17 +1,17 @@
 //
-//  OwnerPickerVC.swift
+//  TeamMemberPickerVC.swift
 //  Passerby
 //
-//  Created by Zsolt Toth on 2023. 03. 19..
+//  Created by Zsolt Toth on 2023. 06. 13..
 //
 
 import RxSwift
 import RxCocoa
 import UIKit
 
-class OwnerPickerVC: UIViewController {
+class TeamMemberPickerVC: UIViewController {
     
-    var viewModel: TaskViewModelType!
+    var viewModel: TeamMemberPickerType!
     private let bag = DisposeBag()
     
     var teamUser: [TeamUser]?
@@ -49,7 +49,6 @@ class OwnerPickerVC: UIViewController {
             picker.topAnchor.constraint(equalTo: view.topAnchor)
         ])
         
-
         viewModel.teamUser
             .subscribe(onNext: { teamUser in
                 self.teamUser = teamUser
@@ -66,6 +65,7 @@ class OwnerPickerVC: UIViewController {
             })
             .subscribe(viewModel.selectedOwnerSubject)
             .disposed(by: bag)
+        
         
         viewModel.defaultOwnerValue
             .filter { $0 != nil }
@@ -89,7 +89,7 @@ class OwnerPickerVC: UIViewController {
         
 }
 
-extension OwnerPickerVC: UIPickerViewDelegate, UIPickerViewDataSource {
+extension TeamMemberPickerVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return teamUserNames.count
     }

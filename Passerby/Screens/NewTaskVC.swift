@@ -16,7 +16,7 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
     
     var prioSegmentedVC: PrioSegmentedVC!
     var weightSegmentedVC: WeightSegmentedVC!
-    var ownerPickerVC: OwnerPickerVC!
+    var ownerPickerVC: TeamMemberPickerVC!
     var dialogVC: PBDialogVC!
     
     let scrollView = UIScrollView()
@@ -53,7 +53,7 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
         view.backgroundColor = .systemBackground
         title = nil
         
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(createTask))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(modifyTask))
         navigationItem.rightBarButtonItem = saveButton
         
         saveButton.isEnabled = false
@@ -75,7 +75,7 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
     }
     
     
-    @objc func createTask() { // Do not delete this, needed for the selector
+    @objc func modifyTask() { // Do not delete this, needed for the selector
     }
     
     

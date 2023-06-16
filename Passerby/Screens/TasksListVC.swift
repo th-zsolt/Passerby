@@ -15,6 +15,7 @@ class TasksListVC: PBDataLoadingVC {
     private let bag = DisposeBag()
         
     var viewModel: TasksListViewModel!
+//    var filterTaskViewModel: FilterTaskViewModel!
     
     let tableView = UITableView()
     
@@ -52,8 +53,20 @@ class TasksListVC: PBDataLoadingVC {
         
         navigationItem.rightBarButtonItems = [barAddButton, barFilterButton,  barProfileButton]
         
+//        filterTaskViewModel.doFilter
+//            .filter{ $0 != nil }
+//            .bind(to: viewModel.doFilterTaskList)
+//            .disposed(by: bag)
+//            .subscribe(onNext: { result in
+//                print("TaskListVC megkapta")
+//        }).disposed(by: bag)
+        
         profileButton.rx.tap
             .bind(to: viewModel.accountButtonClicked)
+            .disposed(by: bag)
+        
+        filterButton.rx.tap
+            .bind(to: viewModel.filterButtonClicked)
             .disposed(by: bag)
         
         addButton.rx.tap
@@ -69,7 +82,7 @@ class TasksListVC: PBDataLoadingVC {
             
     
     func bindTableView() {
-        self.viewModel.taskItems.asDriver()
+        self.viewModel.filteredTaskItems.asDriver()
 //            .observe(on: MainScheduler.instance)
             .filter{$0 != nil}
             .drive(onNext: { [weak self] _ in self?.tableView.reloadData() })
@@ -92,14 +105,14 @@ class TasksListVC: PBDataLoadingVC {
 extension TasksListVC: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.taskItems.value?.count ?? 0
+        return viewModel.filteredTaskItems.value?.count ?? 0
     }
 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: PBTableViewCell.reuseID) as? PBTableViewCell
-        cell?.update(viewModel.taskItems.value![indexPath.row].taskName, priority: viewModel.taskItems.value![indexPath.row].taskPrio)
-        print(viewModel.taskItems.value![indexPath.row].taskName)
+        cell?.update(viewModel.filteredTaskItems.value![indexPath.row].taskName, priority: viewModel.filteredTaskItems.value![indexPath.row].taskPrio)
+        print(viewModel.filteredTaskItems.value![indexPath.row].taskName)
         return cell ?? UITableViewCell()
         }
 }

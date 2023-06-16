@@ -19,6 +19,7 @@ struct TaskItem: Codable {
     let creator: String
     let assigned: String
     let description: String
+    let state: Int
     
 
 //    init() {

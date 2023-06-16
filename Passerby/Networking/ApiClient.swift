@@ -54,6 +54,18 @@ class ApiClient {
     }
     
     
+    static func modifyTask(taskItem: TaskItem)-> Observable<String> {
+        //For the ApiRouter:
+        let encoder = JSONEncoder()
+        
+        if let encoded = try? encoder.encode(taskItem) {
+            print(String(data: encoded, encoding: .utf8)!)
+        }
+
+        return Observable.of("1")
+    }
+    
+    
     static func getTask(taskId: String) -> Observable<TaskItem> {
         return Observable.of(TaskItem(taskId: "1",
                                       taskName: "Test ticket",
@@ -63,7 +75,8 @@ class ApiClient {
                                       modifiedDate: "2022-03-05",
                                       creator: "Teszt Elek",
                                       assigned: "Kecskés Kincső",
-                                      description: "Main task")
+                                      description: "Main task",
+                                      state: 3)
         )
     }
     
