@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class FilterTaskVC: UIViewController {
+class FilterTaskVC: PBDataLoadingVC {
     
     private let bag = DisposeBag()
     var viewModel: FilterTaskViewModel!
@@ -73,7 +73,7 @@ class FilterTaskVC: UIViewController {
         }).disposed(by: bag)
         
         viewModel.presentError.subscribe(onNext: { error in
-            if error != "" { self.presentPBAlert(title: error, message: "Please try again", buttonTitle: "Ok")}
+            self.presentPBAlert(title: "Bad stuff happened", message: error, buttonTitle: "Ok")
         }).disposed(by: bag)
         
         taskIdTextField.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledIdSubject).disposed(by: bag)        

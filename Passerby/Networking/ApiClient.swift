@@ -72,7 +72,7 @@ class ApiClient {
                                       taskPrio: 3,
                                       taskWeight: 3,
                                       creationDate: "2022-10-31",
-                                      modifiedDate: "2022-03-05",
+                                      modifiedDate: "2023-03-05",
                                       creator: "Teszt Elek",
                                       creatorId: "14",
                                       assigned: "Kecskés Kincső",
@@ -80,6 +80,26 @@ class ApiClient {
                                       description: "Main task",
                                       state: 3)
         )
+    }
+    
+    static func getComments(taskid: String) -> Observable<CommentItem> {
+        return Observable.of(CommentItem(taskId: "1", comments: [
+            Comment(commentId: "101", text: "First comment", creatorId: 14, creationDate: "2023-01-30"),
+            Comment(commentId: "102", text: "Second comment", creatorId: 15, creationDate: "2023-02-20"),
+            Comment(commentId: "103", text: "Another comment", creatorId: 14, creationDate: "2023-03-05")
+        ]))
+    }
+    
+    
+    static func createComment(newComment: NewCommentItem) -> Observable<Bool> {
+        //For the ApiRouter:
+        let encoder = JSONEncoder()
+        
+        if let encoded = try? encoder.encode(newComment) {
+            print(String(data: encoded, encoding: .utf8)!)
+            return Observable.of(true)
+        } else { return Observable.of(false) }
+        
     }
     
                                         

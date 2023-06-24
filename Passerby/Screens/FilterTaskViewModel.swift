@@ -29,7 +29,7 @@ class FilterTaskViewModel: WeightType, PrioType, TeamMemberPickerType, StateType
     var doFilter = BehaviorRelay<FilterItem?>(value: nil)
     var screenVisible = BehaviorRelay<Bool>(value: false)
     var teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
-    let presentError = BehaviorRelay<String>(value: "")
+    let presentError = PublishRelay<String>()
     var stateNames = BehaviorRelay<[String]>(value: [])
     
     var defaultPrioValue = BehaviorRelay<Int?>(value: nil)
@@ -49,15 +49,7 @@ class FilterTaskViewModel: WeightType, PrioType, TeamMemberPickerType, StateType
     
 // MARK: - Init
     init(user: User) {
-        
-//        self.taskId = ""
-//        self.taskNameValue = ""
-//        self.desciptionValue = ""
-//        self.prioValue = -1
-//        self.weightValue = -1
-//        self.creatorValue = "0"
-//        self.stateValue = 0
-        
+                
         self.filterItem = FilterItem()
         self.taskId = self.filterItem.taskId
         self.taskNameValue = self.filterItem.taskName
@@ -88,11 +80,11 @@ class FilterTaskViewModel: WeightType, PrioType, TeamMemberPickerType, StateType
         })
 
         _ = selectedPrioSubject.subscribe(onNext: {prio in
-            self.prioValue = prio
+            (prio == 0) ? (self.prioValue = -1) : (self.prioValue = prio)
         })
 
         _ = selectedWeightSubject.subscribe(onNext: {weight in
-            self.weightValue = weight
+            (weight == 0) ? (self.weightValue = -1) : (self.weightValue = weight)
         })
 
         _ = selectedStateSubject.subscribe(onNext: {state in
@@ -153,7 +145,8 @@ class FilterTaskViewModel: WeightType, PrioType, TeamMemberPickerType, StateType
             onNext: { team in
                 self.mapTeamUser(team: team)
         }, onError: { error in
-            self.presentError.accept(error.localizedDescription)
+            let errorMessage = ErrorHelper.parseErroMessage(error: error)
+            self.presentError.accept(errorMessage)
         }).disposed(by: bag)
     }
     

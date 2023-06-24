@@ -15,7 +15,6 @@ class StatePickerVC: UIViewController {
     private let bag = DisposeBag()
    
     var stateNames = [] as NSMutableArray
-//    let states = TaskState().state.map { "\($0.value)" }
     let picker = UIPickerView()
     
     

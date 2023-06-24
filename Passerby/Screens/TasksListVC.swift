@@ -15,7 +15,6 @@ class TasksListVC: PBDataLoadingVC {
     private let bag = DisposeBag()
         
     var viewModel: TasksListViewModel!
-//    var filterTaskViewModel: FilterTaskViewModel!
     
     let tableView = UITableView()
     
@@ -52,15 +51,7 @@ class TasksListVC: PBDataLoadingVC {
         let barAddButton = UIBarButtonItem(customView: addButton)
         
         navigationItem.rightBarButtonItems = [barAddButton, barFilterButton,  barProfileButton]
-        
-//        filterTaskViewModel.doFilter
-//            .filter{ $0 != nil }
-//            .bind(to: viewModel.doFilterTaskList)
-//            .disposed(by: bag)
-//            .subscribe(onNext: { result in
-//                print("TaskListVC megkapta")
-//        }).disposed(by: bag)
-        
+                
         profileButton.rx.tap
             .bind(to: viewModel.accountButtonClicked)
             .disposed(by: bag)
@@ -78,12 +69,14 @@ class TasksListVC: PBDataLoadingVC {
             .bind(to: viewModel.taskItemSelected)
             .disposed(by: bag)
 
+        viewModel.presentError.subscribe(onNext: { error in
+            self.presentPBAlert(title: "Bad stuff happened", message: error, buttonTitle: "Ok")
+        }).disposed(by: bag)
     }
             
     
     func bindTableView() {
         self.viewModel.filteredTaskItems.asDriver()
-//            .observe(on: MainScheduler.instance)
             .filter{$0 != nil}
             .drive(onNext: { [weak self] _ in self?.tableView.reloadData() })
             .disposed(by: bag)

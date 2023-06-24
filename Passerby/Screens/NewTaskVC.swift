@@ -66,7 +66,7 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
         saveButton.rx.tap.subscribe(onNext: { self.viewModel.createTask() }).disposed(by: bag)
         
         viewModel.presentError.subscribe(onNext: { error in
-            if error != "" { self.presentPBAlert(title: error, message: "Please try again", buttonTitle: "Ok")}
+            self.presentPBAlert(title: "Bad stuff happened", message: error, buttonTitle: "Ok")
         }).disposed(by: bag)
 
         viewModel.presentCompletionWithId.subscribe(onNext: { id in
@@ -95,7 +95,7 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
                          
         NSLayoutConstraint.activate([
              contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-             contentView.heightAnchor.constraint(equalToConstant: 800)
+             contentView.heightAnchor.constraint(equalToConstant: 1050)
 //             1200
         ])
 
@@ -106,10 +106,10 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
     
     func getInitialTaskValues() {
         _ = self.viewModel.initialTask
-            .subscribe(onNext: { initialTaskViewModel in
-                self.creationDateLabelValue.text = initialTaskViewModel.creationDate
-                self.modificationDateLabelValue.text = initialTaskViewModel.modifiedDate
-                self.reporterLabelValue.text = initialTaskViewModel.creator
+            .subscribe(onNext: { initialTask in
+                self.creationDateLabelValue.text = initialTask.creationDate
+                self.modificationDateLabelValue.text = initialTask.modifiedDate
+                self.reporterLabelValue.text = initialTask.creatorName
             })
     }
     
@@ -120,8 +120,6 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
         prioView.translatesAutoresizingMaskIntoConstraints = false
         weightView.translatesAutoresizingMaskIntoConstraints = false
         ownerPickerView.translatesAutoresizingMaskIntoConstraints = false
-//        stateLabel.translatesAutoresizingMaskIntoConstraints = false
-//        statePickerView.translatesAutoresizingMaskIntoConstraints = false
         
         prioLabel.text = "Priority:"
         weightLabel.text = "Weight:"
@@ -130,12 +128,10 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
         creationDateLabel.text = "Created:"
         modificationDateLabel.text = "Last modified:"
         descriptionLabel.text = "Description:"
-//        stateLabel.text = "State:"
         
         self.add(childVC: prioSegmentedVC, to: self.prioView)
         self.add(childVC: weightSegmentedVC, to: self.weightView)
         self.add(childVC: ownerPickerVC, to: self.ownerPickerView)
-//        self.add(childVC: statePickerVC, to: self.statePickerView)
         
 
         let padding: CGFloat = 24
@@ -207,17 +203,7 @@ class NewTaskVC: PBDataLoadingVC, UIScrollViewDelegate {
             ownerPickerView.leadingAnchor.constraint(equalTo: ownerLabel.trailingAnchor, constant: valuePadding),
             ownerPickerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             ownerPickerView.heightAnchor.constraint(equalToConstant: 200),
-            
-//            stateLabel.topAnchor.constraint(equalTo: ownerPickerView.bottomAnchor, constant: 110),
-//            stateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-//            stateLabel.widthAnchor.constraint(equalToConstant: 110),
-//            stateLabel.heightAnchor.constraint(equalToConstant: 20),
-
-//            statePickerView.topAnchor.constraint(equalTo: ownerPickerView.bottomAnchor, constant: 10),
-//            statePickerView.leadingAnchor.constraint(equalTo: stateLabel.trailingAnchor, constant: valuePadding),
-//            statePickerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-//            statePickerView.heightAnchor.constraint(equalToConstant: 200),
-            
+                        
             descriptionLabel.topAnchor.constraint(equalTo: ownerPickerView.bottomAnchor, constant: sectionPadding),
             descriptionLabel.leadingAnchor.constraint(equalTo: ownerPickerView.leadingAnchor, constant: padding),
             descriptionLabel.trailingAnchor.constraint(equalTo: ownerPickerView.trailingAnchor),

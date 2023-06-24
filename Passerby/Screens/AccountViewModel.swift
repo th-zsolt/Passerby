@@ -14,16 +14,13 @@ class AccountViewModel {
     
     // MARK: - Input
   
-//    let accountBackButtonClicked: AnyObserver<Void>
     
     // MARK: - Output
     let fullName: String
     let teamName: String
     let permissions: String
     let openTicketsCount: String
-    
-//    let backToTasksList: Observable<Void>
-    
+        
     
     // MARK: - Init
     init(user: User) {

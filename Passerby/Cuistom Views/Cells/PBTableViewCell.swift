@@ -48,13 +48,13 @@ class PBTableViewCell: UITableViewCell {
         
         priorityIcon.translatesAutoresizingMaskIntoConstraints = false
         
+        
         NSLayoutConstraint.activate([
             priorityIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
             priorityIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             priorityIcon.widthAnchor.constraint(equalToConstant: 32),
             priorityIcon.heightAnchor.constraint(equalToConstant: 32),
 
-            
             taskNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             taskNameLabel.leadingAnchor.constraint(equalTo: priorityIcon.trailingAnchor, constant: padding),
             taskNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),

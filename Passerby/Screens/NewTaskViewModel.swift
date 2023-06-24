@@ -26,8 +26,8 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
     
     // MARK: - Output
     
-    let initialTask: Observable<InitialTaskViewModel>
-    let presentError = BehaviorRelay<String>(value: "")
+    let initialTask: Observable<InitialTask>
+    let presentError = PublishRelay<String>()
     let presentCompletionWithId = BehaviorRelay<String>(value: "")
     let backToTasksList: Observable<Void>
     
@@ -42,8 +42,9 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
     var weightValue: Int
     var creationDateValue: String
     var modifiedDateValue: String
+    var creatorId: String
     var creatorValue: String
-    var ownerValue: String
+    var ownerId: String
     
     private let errorTrigger = PublishSubject<String>()
     
@@ -56,12 +57,12 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
         self.weightValue = 0
         self.creationDateValue = ""
         self.modifiedDateValue = ""
+        self.creatorId = ""
         self.creatorValue = ""
-        self.ownerValue = ""
-                    
+        self.ownerId = ""
         
         initialTask = Observable.deferred{
-            return Observable.just(InitialTaskViewModel(user: user))
+            return Observable.just(InitialTask(user: user))
         }
         
         let _dialogClosed = PublishSubject<Void>()
@@ -79,7 +80,7 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
         })
         
         _ = selectedTeamMemberSubject.subscribe(onNext: {owner in
-            self.ownerValue = owner
+            self.ownerId = owner
         })
         
         _ = selectedPrioSubject.subscribe(onNext: {prio in
@@ -93,7 +94,8 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
         _ = initialTask.subscribe(onNext: { initialTask in
             self.creationDateValue = initialTask.creationDate
             self.modifiedDateValue = initialTask.modifiedDate
-            self.creatorValue = initialTask.creator
+            self.creatorId = initialTask.creatorId
+            self.creatorValue = initialTask.creatorName
         })
         
     }
@@ -102,14 +104,14 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
     func createTask() {
 
         
-        if ownerValue == "" {getDefaultOwner()}
+        if ownerId == "" {getDefaultOwner()}
         let newTask = NewTask(taskName: taskNameValue,
                               taskPrio: prioValue,
                               taskWeight: weightValue,
                               creationDate: creationDateValue,
                               modifiedDate: modifiedDateValue,
-                              creatorId: creatorValue,
-                              assignedId: ownerValue,
+                              creatorId: creatorId,
+                              assignedId: ownerId,
                               description: desciptionValue)
         print(newTask)
         
@@ -117,7 +119,8 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
             onNext: { id in
                 self.presentCompletionWithId.accept(id)
             }, onError: { error in
-                self.presentError.accept(error.localizedDescription)
+                let errorMessage = ErrorHelper.parseErroMessage(error: error)
+                self.presentError.accept(errorMessage)
             }).disposed(by: bag)
     }
     
@@ -125,7 +128,7 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
     
     func getDefaultOwner() {
         _ = teamUser.subscribe(onNext: { teamUser in
-            self.ownerValue = String(teamUser?.first?.userId ?? "")
+            self.ownerId = String(teamUser?.first?.userId ?? "")
             })
             .disposed(by: bag)
     }
@@ -143,7 +146,8 @@ class NewTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType {
             onNext: { team in
                 self.mapTeamUser(team: team)
         }, onError: { error in
-            self.presentError.accept(error.localizedDescription)
+            let errorMessage = ErrorHelper.parseErroMessage(error: error)
+            self.presentError.accept(errorMessage)
         }).disposed(by: bag)
     }
     

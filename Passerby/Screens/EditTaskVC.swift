@@ -42,8 +42,6 @@ class EditTaskVC: UIViewController {
     let modificationDateLabelValue = PBBodyLabelValue(textAlignment: .left)
     let descriptionLabel = PBBodyLabel(textAlignment: .left)
     let descriptionTextView = PBTextView(frame: CGRect(x: 20.0, y: 90.0, width: 250.0, height: 200.0))
-    
-//    let commentButton = PBButton(color: .systemBlue, title: "Comments")
        
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +49,6 @@ class EditTaskVC: UIViewController {
         configureScrollView()
         configureUIElements()
         createDismissKeyboardTapGesture()
-        
     }
 
     
@@ -60,22 +57,8 @@ class EditTaskVC: UIViewController {
         title = nil
         
         let saveButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editTask))
-        navigationItem.rightBarButtonItem = saveButton
-        
-        nameTextField.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledTitleSubject).disposed(by: bag)
-        descriptionTextView.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledDescriptionSubject).disposed(by: bag)
-        
-        viewModel.isValid().bind(to: saveButton.rx.isEnabled).disposed(by: bag)
-        
-        saveButton.rx.tap.subscribe(onNext: { self.viewModel.modifyTask() }).disposed(by: bag)
-        
-        viewModel.presentError.subscribe(onNext: { error in
-            if error != "" { self.presentPBAlert(title: error, message: "Please try again", buttonTitle: "Ok")}
-        }).disposed(by: bag)
-
-        viewModel.presentCompletionWithId.subscribe(onNext: { id in
-            if id != "" { self.presentPBDialog(title: "The task has been modified", message: "Task Id: " + id, buttonTitle: "Ok" )}
-        }).disposed(by: bag)
+        let commentsButton = UIBarButtonItem(title: "Comments", style: .plain, target: self, action: #selector(showComments))
+        navigationItem.rightBarButtonItems = [saveButton, commentsButton]
         
         viewModel.originalTask
             .subscribe(onNext: { taskItem in
@@ -86,10 +69,31 @@ class EditTaskVC: UIViewController {
                 self.nameTextField.text = taskItem.first?.taskName
                 self.descriptionTextView.text = taskItem.first?.description
             }).disposed(by: bag)
+        
+        nameTextField.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledTitleSubject).disposed(by: bag)
+        descriptionTextView.rx.text.map { $0 ?? "" }.bind(to: viewModel.filledDescriptionSubject).disposed(by: bag)
+        
+        viewModel.isValid().bind(to: saveButton.rx.isEnabled).disposed(by: bag)
+        
+        saveButton.rx.tap.subscribe(onNext: { self.viewModel.modifyTask() }).disposed(by: bag)
+        
+        commentsButton.rx.tap.bind(to: self.viewModel.commentsButtonClicked).disposed(by: bag)
+        
+        viewModel.presentError.subscribe(onNext: { error in
+            self.presentPBAlert(title: "Bad stuff happened", message: error, buttonTitle: "Ok")
+        }).disposed(by: bag)
+
+        viewModel.presentCompletionWithId.subscribe(onNext: { id in
+            if id != "" { self.presentPBDialog(title: "The task has been modified", message: "Task Id: " + id, buttonTitle: "Ok" )}
+        }).disposed(by: bag)
+
     }
     
     
     @objc func editTask() { // Do not delete this, needed for the selector
+    }
+    
+    @objc func showComments() { // Do not delete this, needed for the selector
     }
     
     
@@ -109,7 +113,7 @@ class EditTaskVC: UIViewController {
                          
         NSLayoutConstraint.activate([
              contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-             contentView.heightAnchor.constraint(equalToConstant: 1200)
+             contentView.heightAnchor.constraint(equalToConstant: 1300)
         ])
 
         contentView.addSubViews(nameTextField, taskIdLabel, taskIdLabelValue, prioLabel, prioView, weightLabel, weightView, reporterLabel, reporterLabelValue, ownerLabel, ownerPickerView, creationDateLabel, creationDateLabelValue, modificationDateLabel, modificationDateLabelValue, descriptionLabel, descriptionTextView, stateLabel, statePickerView)

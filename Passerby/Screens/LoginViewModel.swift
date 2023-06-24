@@ -29,8 +29,6 @@ class LoginViewModel {
     
     func getUser(loginName: String) {
         print(loginName)
-//        let _dummyUser = User(userId: "1", loginName: "Test1", fullName: "Teszt Elek", userTaskID: ["1","2","3"])
-//        print(_dummyUser)
         ApiClient.getUser(loginName: loginName).asObservable().subscribe(
             onNext: { result in
                 self.user.accept(result)

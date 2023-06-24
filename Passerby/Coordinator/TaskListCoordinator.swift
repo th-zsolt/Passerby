@@ -14,6 +14,7 @@ class TaskListCoordinator: Coordinator {
     var bag: DisposeBag = DisposeBag()
     var rootViewController = UINavigationController()
     var user: User
+    var teamUser: [TeamUser]?
     
     let filterTaskViewModel : FilterTaskViewModel
     
@@ -43,13 +44,6 @@ class TaskListCoordinator: Coordinator {
             .filter{ $0 != nil }
             .bind(to: viewModel.doFilterTaskList)
             .disposed(by: bag)
-        
-//        filterTaskViewModel.doFilter
-//            .filter{ $0 != nil }
-//            .subscribe(onNext: { filter in
-//                self.filterItem = filter ?? self.filterItem
-//            })
-//            .disposed(by: bag)
         
         viewModel.showAccount
             .subscribe(onNext: { [weak self] in self?.showAccount(user: currentUser) })
@@ -121,6 +115,23 @@ class TaskListCoordinator: Coordinator {
             .subscribe(onNext: { _ in
                 editTaskVC.navigationController?.popViewController(animated: true)
             } )
+            .disposed(by: bag)
+        
+        editTaskViewModel.presentComments
+            .filter { $0 != "" }
+            .subscribe(onNext: { _taskId in
+                if self.teamUser != nil {
+                    self.showComments(taskId: _taskId, teamUser: self.teamUser!)
+                } else {
+                    print("error")
+                }
+            })
+            .disposed(by: bag)
+        
+        editTaskViewModel.teamUser
+            .subscribe(onNext: { teamUser in
+                self.teamUser = teamUser ?? nil
+            })
             .disposed(by: bag)
     }
     
@@ -228,6 +239,38 @@ class TaskListCoordinator: Coordinator {
             .subscribe(onNext: { _ in
                 newTaskVC.navigationController?.popViewController(animated: true)
             } )
+            .disposed(by: bag)
+    }
+    
+    
+    private func showComments(taskId: String, teamUser: [TeamUser]) {
+        lazy var commentsVC: CommentsVC = {
+            let vc = CommentsVC()
+            return vc
+        }()
+        
+        let commentsViewModel = CommentsViewModel(taskId: taskId, teamUser: teamUser)
+        commentsVC.viewModel = commentsViewModel
+        rootViewController.pushViewController(commentsVC, animated: true)
+        
+        commentsViewModel.showNewComment
+            .subscribe(onNext: { _ in self.showNewComment(taskId: taskId, user: self.user, parent: commentsVC) })
+            .disposed(by: bag)
+    }
+    
+    
+    private func showNewComment(taskId: String, user: User, parent: UIViewController) {
+        lazy var newCommentVC: NewCommentVC = {
+            let vc = NewCommentVC()
+            return vc
+        }()
+
+        let newCommentViewModel = NewCommentViewModel(taskId: taskId, user: user)
+        newCommentVC.viewModel = newCommentViewModel
+        rootViewController.pushViewController(newCommentVC, animated: true)
+
+        newCommentViewModel.backToComments
+            .subscribe(onNext: { _ in parent.navigationController?.popViewController(animated: true) })
             .disposed(by: bag)
     }
 

@@ -29,10 +29,11 @@ class TasksListViewModel {
     let showFilter: Observable<Void>
     let showNewTask: Observable<Void>
     let showEditTask = BehaviorRelay<String>(value: "")
+    let presentError = PublishRelay<String>()
     
     private var originalTaskItems = [TaskItem]?(nil)
     private var filterItem : FilterItem
-
+    
     // MARK: - Init
     init(user: Driver<User>) {
         
@@ -73,7 +74,6 @@ class TasksListViewModel {
     
     func loadTaskEditor(indexPath: Int) {
         self.showEditTask.accept(self.filteredTaskItems.value![indexPath].taskId)
-//        print(self.taskItems.value![indexPath].taskId)
     }
        
     
@@ -83,22 +83,16 @@ class TasksListViewModel {
             onNext: { result in
                 self.originalTaskItems = result.taskItems
                 self.filterTask()
+                print(result)
         }, onError: { error in
-            print(error)
+            let errorMessage = ErrorHelper.parseErroMessage(error: error)
+            self.presentError.accept(errorMessage)
         }).disposed(by: bag)
     }
     
-    
-//    func mapTasks(result: TaskItemResult) {
-//
-//        let list: [TaskItem] = result.taskItems
-//        self.filteredTaskItems.accept(list)
-//    }
-    
+
     func filterTask() {
         if originalTaskItems != nil {
-            print(self.originalTaskItems)
-            print(self.filterItem)
             var _filteredTaskItem = originalTaskItems
             if self.filterItem.taskId != "" { _filteredTaskItem = _filteredTaskItem?.filter {
                 $0.taskId == self.filterItem.taskId

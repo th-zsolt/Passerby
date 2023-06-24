@@ -23,13 +23,6 @@ struct TaskItem: Codable {
     let description: String
     let state: Int
     
-
-//    init() {
-//        self.taskId = ""
-//        self.taskName = ""
-//        self.taskPrio = 0
-//    }
-    
 }
 
 struct TaskItemResult: Codable {

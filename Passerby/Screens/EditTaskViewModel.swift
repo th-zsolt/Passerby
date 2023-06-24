@@ -15,10 +15,12 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
 
     // MARK: - Input
    
+
+    let commentsButtonClicked: AnyObserver<Void>
+    var dialogClosed: AnyObserver<Void>
+    
     let filledTitleSubject = PublishSubject<String>()
     let filledDescriptionSubject = PublishSubject<String>()
-        
-    var dialogClosed: AnyObserver<Void>
     var selectedWeightSubject = PublishSubject<Int>()
     var selectedPrioSubject = PublishSubject<Int>()
     var selectedTeamMemberSubject = PublishSubject<String>()
@@ -28,12 +30,12 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
     // MARK: - Output
 
     let originalTask = BehaviorRelay<[TaskItem]>(value: [])
-    let presentError = BehaviorRelay<String>(value: "")
+    let presentError = PublishRelay<String>()
     let presentCompletionWithId = BehaviorRelay<String>(value: "")
+    let presentComments = BehaviorRelay<String>(value: "")
     let backToTasksList: Observable<Void>
 
     var stateNames = BehaviorRelay<[String]>(value: [])
-    
     var teamUser = BehaviorRelay<[TeamUser]?>(value: nil)
     var defaultPrioValue = BehaviorRelay<Int?>(value: nil)
     var defaultWeightValue = BehaviorRelay<Int?>(value: nil)
@@ -46,8 +48,10 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
     var weightValue: Int
     var creationDateValue: String
     var modifiedDateValue: String
-    var creatorValue: String
-    var ownerValue: String
+    var creatorId: String
+    var creatorName: String
+    var ownerId: String
+    var ownerName: String
     var stateValue: Int
     var taskId: String
 
@@ -62,14 +66,22 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
         self.weightValue = 0
         self.creationDateValue = ""
         self.modifiedDateValue = ""
-        self.creatorValue = ""
-        self.ownerValue = ""
+        self.creatorId = ""
+        self.creatorName = ""
+        self.ownerId = ""
+        self.ownerName = ""
         self.stateValue = 0
         self.taskId = ""
             
         let _dialogClosed = PublishSubject<Void>()
         self.dialogClosed = _dialogClosed.asObserver()
         self.backToTasksList = _dialogClosed.asObservable()
+        
+        let _commentsButtonClicked = PublishSubject<Void>()
+        self.commentsButtonClicked = _commentsButtonClicked.asObserver()
+        _commentsButtonClicked.asObservable().subscribe(onNext: { _ in
+            self.presentComments.accept(self.taskId)
+        }).disposed(by: bag)
         
         self.getStates()
         
@@ -84,7 +96,8 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
         })
         
         _ = selectedTeamMemberSubject.subscribe(onNext: {owner in
-            self.ownerValue = owner
+            self.ownerId = owner
+            self.ownerName = self.getTeammemberName(id: owner, teamUsers: self.teamUser.value ?? [])
         })
         
         _ = selectedPrioSubject.subscribe(onNext: {prio in
@@ -108,8 +121,10 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
             self.weightValue = taskItemList.first?.taskWeight ?? 0
             self.creationDateValue = taskItemList.first?.creationDate ?? ""
             self.modifiedDateValue = taskItemList.first?.modifiedDate ?? ""
-            self.creatorValue = taskItemList.first?.creatorId ?? ""
-            self.ownerValue = taskItemList.first?.assignedId ?? ""
+            self.creatorId = taskItemList.first?.creatorId ?? ""
+            self.creatorName = taskItemList.first?.creator ?? ""
+            self.ownerId = taskItemList.first?.assignedId ?? ""
+            self.ownerName = taskItemList.first?.assigned ?? ""
             self.stateValue = taskItemList.first?.state ?? 0
             self.taskId = taskItemList.first?.taskId ?? ""
             self.setDefaultPrioValue()
@@ -136,7 +151,7 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
     
     func setDefaultOwnerValue() {
         guard let teamusers = self.teamUser.value else { return }
-        let _defaultOwnerValue = teamusers.firstIndex(where: {$0.userName == self.ownerValue})
+        let _defaultOwnerValue = teamusers.firstIndex(where: {$0.userId == self.ownerId})
         self.defaultTeamMemberValue.accept(_defaultOwnerValue)
     }
     
@@ -153,7 +168,8 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
             onNext: { result in
                 self.originalTask.accept([result])
         }, onError: { error in
-            print(error)
+            let errorMessage = ErrorHelper.parseErroMessage(error: error)
+            self.presentError.accept(errorMessage)
         }).disposed(by: bag)
     }
     
@@ -165,17 +181,17 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
 
     
     func modifyTask() {
-        if ownerValue == "" {getDefaultOwner()}
+        if ownerId == "" {getDefaultOwner()}
         let modifiedTask = TaskItem(taskId: taskId,
                                     taskName: taskNameValue,
                                     taskPrio: prioValue,
                                     taskWeight: weightValue,
                                     creationDate: creationDateValue,
                                     modifiedDate: modifiedDateValue,
-                                    creator: creatorValue,
-                                    creatorId: creatorValue,
-                                    assigned: ownerValue,
-                                    assignedId: ownerValue,
+                                    creator: creatorName,
+                                    creatorId: creatorId,
+                                    assigned: ownerName,
+                                    assignedId: ownerId,
                                     description: desciptionValue,
                                     state: stateValue)
         print(modifiedTask)
@@ -184,14 +200,15 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
             onNext: { id in
                 self.presentCompletionWithId.accept(id)
             }, onError: { error in
-                self.presentError.accept(error.localizedDescription)
+                let errorMessage = ErrorHelper.parseErroMessage(error: error)
+                self.presentError.accept(errorMessage)
             }).disposed(by: bag)
     }
 
     
     func getDefaultOwner() {
         _ = teamUser.subscribe(onNext: { teamUser in
-            self.ownerValue = String(teamUser?.first?.userId ?? "")
+            self.ownerId = String(teamUser?.first?.userId ?? "")
             })
             .disposed(by: bag)
     }
@@ -218,5 +235,9 @@ class EditTaskViewModel: WeightType, PrioType, TeamMemberPickerType, DialogType,
         let teamUser: [TeamUser] = team.teamUser
         self.teamUser.accept(teamUser)
     }
+    
+    func getTeammemberName(id: String, teamUsers: [TeamUser]) -> String {
+        return teamUsers.filter { $0.userId == id}.first?.userName ?? ""
+        }
     
 }

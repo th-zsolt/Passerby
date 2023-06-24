@@ -13,12 +13,7 @@ class LoginVC: PBDataLoadingVC {
     var viewModel: LoginViewModel!
     
     private let bag = DisposeBag()
-    
-//    private let buttonClickedSubject = PublishSubject<Bool>()
-//    var buttonClicked: Observable <Bool> {
-//        return buttonClickedSubject.asObservable()
-//    }
-            
+                
     let logoImageView = UIImageView()
     let userNameTextField = PBTextField(placeholder: "Enter the login name")
     let callToActionButton = PBButton(color: .systemGreen, title: "Login")
